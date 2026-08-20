@@ -6,6 +6,7 @@ After=network-online.target
 Type=simple
 WorkingDirectory=%h/Projects/mobile-exercise-tracker
 Environment=TRACKER_API_HOST=127.0.0.1
+EnvironmentFile=-%h/.config/mobile-exercise-tracker/environment
 ExecStart=/usr/bin/python3 %h/Projects/mobile-exercise-tracker/scripts/tracker-api.py 5175
 Restart=on-failure
 RestartSec=3
@@ -15,4 +16,3 @@ PrivateTmp=true
 
 [Install]
 WantedBy=default.target
-

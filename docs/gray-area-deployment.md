@@ -12,8 +12,11 @@ From `$HOME/Projects/mobile-exercise-tracker`:
 ./scripts/install-gray-area-service.sh
 ```
 
-The command prints the private HTTPS URL. Do not use Tailscale Funnel for this
-project: Funnel would make the page public.
+The command prefers a private HTTPS URL through Tailscale Serve. If the current
+user is not permitted to configure Serve, it falls back to binding port `5175`
+only on the host's Tailscale IP and prints an `http://100.x.y.z:5175/` URL. That
+fallback is still encrypted in transit by Tailscale and is not bound to the LAN.
+Do not use Tailscale Funnel for this project: Funnel would make the page public.
 
 Useful checks:
 
@@ -21,6 +24,13 @@ Useful checks:
 systemctl --user status mobile-exercise-tracker.service
 curl --fail http://127.0.0.1:5175/api/status
 tailscale serve status
+```
+
+To enable the friendlier HTTPS URL later, an administrator can run the following
+once and then rerun the installer:
+
+```sh
+sudo tailscale set --operator="$USER"
 ```
 
 ## Private data boundary
