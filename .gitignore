@@ -1,0 +1,51 @@
+# Operating-system and editor state
+.DS_Store
+.dev-logs/
+*.log
+*.swp
+*.tmp
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+*.p8
+*.p12
+*.jks
+*.mobileprovision
+.private/
+.claude/
+
+# Dependencies and generated mobile output
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+mobile/web-build/
+mobile/ios/
+mobile/android/
+mobile/.kotlin/
+mobile/expo-env.d.ts
+mobile/*.tsbuildinfo
+
+# Personal source material and runtime data. Never commit these paths.
+Workouts.xlsx
+Training Regime*.csv
+data/backups/
+data/imports/
+data/mac/
+data/recovery/
+data/private/
+data/*.sqlite
+data/body-weight.weekly.seed.csv
+data/body-weight.weekly.seed.json
+data/plan-config.json
+data/workout-plan.seed.json
+# Local exports that may contain health, workout, or location information
+*.full-backup.json
+desktop-lift-backup.json
+phone-plan-context.json

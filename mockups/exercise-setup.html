@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Exercise Setup Mockup</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="Exercise setup mobile mockup">
+      <header class="status-bar">
+        <span>09:42</span>
+        <span>LTE 82%</span>
+      </header>
+
+      <section class="screen">
+        <div class="topline">
+          <div>
+            <p class="eyebrow">Setup</p>
+            <h1>Exercises</h1>
+          </div>
+          <button class="icon-button" aria-label="Settings">...</button>
+        </div>
+
+        <nav class="tabs" aria-label="Mockup pages">
+          <a href="index.html">Log</a>
+          <a href="exercise-setup.html" class="active">Setup</a>
+          <a href="location-resolver.html">Places</a>
+          <a href="analytics.html">Stats</a>
+        </nav>
+
+        <section class="mock-section">
+          <div class="section-head">
+            <h2>Create Exercise</h2>
+            <button class="small-button">Save</button>
+          </div>
+          <div class="form-card">
+            <label>
+              Exercise name
+              <input value="Bench Press">
+            </label>
+            <div class="contribution-list">
+              <div class="contribution-row">
+                <span>Chest</span>
+                <strong>1.0</strong>
+              </div>
+              <div class="contribution-row">
+                <span>Upper Chest</span>
+                <strong>0.8</strong>
+              </div>
+              <div class="contribution-row">
+                <span>Triceps</span>
+                <strong>0.7</strong>
+              </div>
+              <div class="contribution-row">
+                <span>Shoulders</span>
+                <strong>0.5</strong>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="mock-section">
+          <div class="section-head">
+            <h2>Create Variation</h2>
+            <button class="small-button">Add</button>
+          </div>
+          <div class="form-card">
+            <label>
+              Base exercise
+              <input value="Bench Press">
+            </label>
+            <label>
+              Variation name
+              <input value="Close Grip">
+            </label>
+          </div>
+        </section>
+
+        <section class="mock-section">
+          <div class="section-head">
+            <h2>Exercise List</h2>
+            <button class="small-button">Filter</button>
+          </div>
+          <div class="exercise-list">
+            <button class="exercise">
+              <span>
+                <strong>Bench Press</strong>
+                <small>Chest 1.0, Upper Chest 0.8, Triceps 0.7</small>
+              </span>
+            </button>
+            <button class="exercise">
+              <span>
+                <strong>Squat</strong>
+                <small>Quads 1.0, Glutes 1.0, Hamstrings 0.8</small>
+              </span>
+            </button>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

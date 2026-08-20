@@ -1,0 +1,797 @@
+{
+  "source": "NHANES 2017-2018",
+  "generatedAt": "2026-07-05T13:18:25.606495Z",
+  "sourceUrls": {
+    "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+    "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+    "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+  },
+  "rawFiles": {
+    "DEMO_J.XPT": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.XPT",
+    "BMX_J.XPT": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.XPT",
+    "DXX_J.XPT": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.XPT"
+  },
+  "notes": "DXA-backed weighted regression models for local body-composition inference. Use with prediction intervals.",
+  "models": [
+    {
+      "id": "nhanes-2017-2018-male-body_fat_percent-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "male",
+      "target": "body_fat_percent",
+      "model_type": "weighted_ols",
+      "unit": "percent",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 87.36030246,
+        "height_cm": 174.30677694,
+        "bmi": 28.73311498,
+        "waist_cm": 98.80367414,
+        "hip_cm": 103.74222914,
+        "upper_arm_cm": 34.54791915,
+        "age_years": 37.74338313
+      },
+      "feature_scales": {
+        "body_weight_kg": 19.4368868,
+        "height_cm": 6.69285835,
+        "bmi": 6.01772837,
+        "waist_cm": 15.71782682,
+        "hip_cm": 11.03766663,
+        "upper_arm_cm": 4.49479487,
+        "age_years": 12.63108801
+      },
+      "coefficients": {
+        "intercept": 27.1876680063,
+        "body_weight_kg": 0.4080337148,
+        "height_cm": -2.0668881265,
+        "bmi": -6.1921319899,
+        "waist_cm": 8.1093455279,
+        "hip_cm": 3.4269074427,
+        "upper_arm_cm": -0.0495043513,
+        "age_years": -0.691632942
+      },
+      "residual_sigma": 3.005846,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1166,
+      "weighted_sample_sum": 60105298.9254,
+      "r_squared": 0.7665,
+      "rmse": 3.005846,
+      "mae": 2.373521,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "DXDTOPF",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-female-body_fat_percent-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "female",
+      "target": "body_fat_percent",
+      "model_type": "weighted_ols",
+      "unit": "percent",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 75.10442588,
+        "height_cm": 161.96124877,
+        "bmi": 28.639064,
+        "waist_cm": 94.49722897,
+        "hip_cm": 107.05902385,
+        "upper_arm_cm": 31.95277798,
+        "age_years": 38.68911256
+      },
+      "feature_scales": {
+        "body_weight_kg": 20.11752047,
+        "height_cm": 6.80999565,
+        "bmi": 7.43069985,
+        "waist_cm": 16.99406856,
+        "hip_cm": 14.5273802,
+        "upper_arm_cm": 5.47564539,
+        "age_years": 12.53521805
+      },
+      "coefficients": {
+        "intercept": 38.3439010911,
+        "body_weight_kg": 1.7674905395,
+        "height_cm": -2.677542691,
+        "bmi": -7.0786729801,
+        "waist_cm": 3.7982602736,
+        "hip_cm": 4.8315540893,
+        "upper_arm_cm": 2.4640318608,
+        "age_years": 0.3128765194
+      },
+      "residual_sigma": 3.712167,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1257,
+      "weighted_sample_sum": 61242094.3066,
+      "r_squared": 0.69456,
+      "rmse": 3.712167,
+      "mae": 2.951629,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "DXDTOPF",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-male-fat_free_mass_kg-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "male",
+      "target": "fat_free_mass_kg",
+      "model_type": "weighted_ols",
+      "unit": "kg",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 87.42647475,
+        "height_cm": 174.35451984,
+        "bmi": 28.74173632,
+        "waist_cm": 98.86114244,
+        "hip_cm": 103.74867086,
+        "upper_arm_cm": 34.56891182,
+        "age_years": 37.85456581
+      },
+      "feature_scales": {
+        "body_weight_kg": 19.5239428,
+        "height_cm": 6.70184482,
+        "bmi": 6.03992536,
+        "waist_cm": 15.80916904,
+        "hip_cm": 11.04803002,
+        "upper_arm_cm": 4.51095861,
+        "age_years": 12.61052618
+      },
+      "coefficients": {
+        "intercept": 60.5483848909,
+        "body_weight_kg": 10.1925467596,
+        "height_cm": 2.4935586776,
+        "bmi": 6.4144923707,
+        "waist_cm": -5.9632147971,
+        "hip_cm": -3.0896482883,
+        "upper_arm_cm": 1.0490106397,
+        "age_years": 0.7203027527
+      },
+      "residual_sigma": 2.660023,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1189,
+      "weighted_sample_sum": 61143553.1526,
+      "r_squared": 0.928988,
+      "rmse": 2.660023,
+      "mae": 2.060948,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "DXDTOLE",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-female-fat_free_mass_kg-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "female",
+      "target": "fat_free_mass_kg",
+      "model_type": "weighted_ols",
+      "unit": "kg",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 75.46782938,
+        "height_cm": 162.00117226,
+        "bmi": 28.75940648,
+        "waist_cm": 94.72463788,
+        "hip_cm": 107.25420775,
+        "upper_arm_cm": 32.05292901,
+        "age_years": 38.54618713
+      },
+      "feature_scales": {
+        "body_weight_kg": 20.25435265,
+        "height_cm": 6.85821107,
+        "bmi": 7.44349126,
+        "waist_cm": 16.96821962,
+        "hip_cm": 14.52165716,
+        "upper_arm_cm": 5.47816148,
+        "age_years": 12.49579214
+      },
+      "coefficients": {
+        "intercept": 43.5963846945,
+        "body_weight_kg": 8.736450341,
+        "height_cm": 2.1320927114,
+        "bmi": 4.2403743146,
+        "waist_cm": -1.5942792258,
+        "hip_cm": -3.2001712229,
+        "upper_arm_cm": -0.706799854,
+        "age_years": -0.1610508498
+      },
+      "residual_sigma": 2.501363,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1335,
+      "weighted_sample_sum": 63762864.6236,
+      "r_squared": 0.914006,
+      "rmse": 2.501363,
+      "mae": 1.932569,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "DXDTOLE",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-male-ffmi-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "male",
+      "target": "ffmi",
+      "model_type": "weighted_ols",
+      "unit": "kg/m2",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 87.42647475,
+        "height_cm": 174.35451984,
+        "bmi": 28.74173632,
+        "waist_cm": 98.86114244,
+        "hip_cm": 103.74867086,
+        "upper_arm_cm": 34.56891182,
+        "age_years": 37.85456581
+      },
+      "feature_scales": {
+        "body_weight_kg": 19.5239428,
+        "height_cm": 6.70184482,
+        "bmi": 6.03992536,
+        "waist_cm": 15.80916904,
+        "hip_cm": 11.04803002,
+        "upper_arm_cm": 4.51095861,
+        "age_years": 12.61052618
+      },
+      "coefficients": {
+        "intercept": 19.8988238498,
+        "body_weight_kg": 0.3079664557,
+        "height_cm": 0.3394488912,
+        "bmi": 4.9721903991,
+        "waist_cm": -1.9590025613,
+        "hip_cm": -1.0082211958,
+        "upper_arm_cm": 0.3347857843,
+        "age_years": 0.2402524035
+      },
+      "residual_sigma": 0.879788,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1189,
+      "weighted_sample_sum": 61143553.1526,
+      "r_squared": 0.913298,
+      "rmse": 0.879788,
+      "mae": 0.680662,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "DXDTOLE/height^2",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-female-ffmi-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "female",
+      "target": "ffmi",
+      "model_type": "weighted_ols",
+      "unit": "kg/m2",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 75.46782938,
+        "height_cm": 162.00117226,
+        "bmi": 28.75940648,
+        "waist_cm": 94.72463788,
+        "hip_cm": 107.25420775,
+        "upper_arm_cm": 32.05292901,
+        "age_years": 38.54618713
+      },
+      "feature_scales": {
+        "body_weight_kg": 20.25435265,
+        "height_cm": 6.85821107,
+        "bmi": 7.44349126,
+        "waist_cm": 16.96821962,
+        "hip_cm": 14.52165716,
+        "upper_arm_cm": 5.47816148,
+        "age_years": 12.49579214
+      },
+      "coefficients": {
+        "intercept": 16.5929703046,
+        "body_weight_kg": 0.342410499,
+        "height_cm": 0.3524039366,
+        "bmi": 4.5121060584,
+        "waist_cm": -0.6066500361,
+        "hip_cm": -1.2252789983,
+        "upper_arm_cm": -0.2822757678,
+        "age_years": -0.0609036215
+      },
+      "residual_sigma": 0.947073,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1335,
+      "weighted_sample_sum": 63762864.6236,
+      "r_squared": 0.90027,
+      "rmse": 0.947073,
+      "mae": 0.731761,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "DXDTOLE/height^2",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-male-appendicular_lean_mass_kg-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "male",
+      "target": "appendicular_lean_mass_kg",
+      "model_type": "weighted_ols",
+      "unit": "kg",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 87.02679873,
+        "height_cm": 174.27282648,
+        "bmi": 28.64002825,
+        "waist_cm": 98.62565477,
+        "hip_cm": 103.53593768,
+        "upper_arm_cm": 34.48121685,
+        "age_years": 37.75771347
+      },
+      "feature_scales": {
+        "body_weight_kg": 19.40369606,
+        "height_cm": 6.67983482,
+        "bmi": 6.01225033,
+        "waist_cm": 15.80487548,
+        "hip_cm": 10.9598906,
+        "upper_arm_cm": 4.49620952,
+        "age_years": 12.60273158
+      },
+      "coefficients": {
+        "intercept": 27.2100332951,
+        "body_weight_kg": 6.8516292396,
+        "height_cm": 0.6476856773,
+        "bmi": 1.4368635661,
+        "waist_cm": -4.4340011185,
+        "hip_cm": -1.061756482,
+        "upper_arm_cm": 1.0105899521,
+        "age_years": 0.3455782459
+      },
+      "residual_sigma": 1.693525,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1154,
+      "weighted_sample_sum": 59618407.3862,
+      "r_squared": 0.8731,
+      "rmse": 1.693525,
+      "mae": 1.314446,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "DXDLALE+DXDRALE+DXDLLLE+DXDRLLE",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-female-appendicular_lean_mass_kg-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "female",
+      "target": "appendicular_lean_mass_kg",
+      "model_type": "weighted_ols",
+      "unit": "kg",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 74.71843051,
+        "height_cm": 161.91234879,
+        "bmi": 28.50473355,
+        "waist_cm": 94.17769538,
+        "hip_cm": 106.61569373,
+        "upper_arm_cm": 31.85531915,
+        "age_years": 38.29812582
+      },
+      "feature_scales": {
+        "body_weight_kg": 20.21879596,
+        "height_cm": 6.84277587,
+        "bmi": 7.45460745,
+        "waist_cm": 17.00588027,
+        "hip_cm": 14.41137902,
+        "upper_arm_cm": 5.46718755,
+        "age_years": 12.57932768
+      },
+      "coefficients": {
+        "intercept": 18.3350554622,
+        "body_weight_kg": 4.456736116,
+        "height_cm": 0.9903635658,
+        "bmi": 2.0736099017,
+        "waist_cm": -1.8029362521,
+        "hip_cm": -1.3226495747,
+        "upper_arm_cm": -0.0771670131,
+        "age_years": -0.232949718
+      },
+      "residual_sigma": 1.469687,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1270,
+      "weighted_sample_sum": 60815622.9082,
+      "r_squared": 0.867408,
+      "rmse": 1.469687,
+      "mae": 1.129927,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "DXDLALE+DXDRALE+DXDLLLE+DXDRLLE",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-male-appendicular_lean_index-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "male",
+      "target": "appendicular_lean_index",
+      "model_type": "weighted_ols",
+      "unit": "kg/m2",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 87.02679873,
+        "height_cm": 174.27282648,
+        "bmi": 28.64002825,
+        "waist_cm": 98.62565477,
+        "hip_cm": 103.53593768,
+        "upper_arm_cm": 34.48121685,
+        "age_years": 37.75771347
+      },
+      "feature_scales": {
+        "body_weight_kg": 19.40369606,
+        "height_cm": 6.67983482,
+        "bmi": 6.01225033,
+        "waist_cm": 15.80487548,
+        "hip_cm": 10.9598906,
+        "upper_arm_cm": 4.49620952,
+        "age_years": 12.60273158
+      },
+      "coefficients": {
+        "intercept": 8.9454561275,
+        "body_weight_kg": 0.9153898942,
+        "height_cm": -0.0097195556,
+        "bmi": 1.7208441286,
+        "waist_cm": -1.4439123636,
+        "hip_cm": -0.3499987117,
+        "upper_arm_cm": 0.3297024355,
+        "age_years": 0.1119898552
+      },
+      "residual_sigma": 0.555111,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1154,
+      "weighted_sample_sum": 59618407.3862,
+      "r_squared": 0.843429,
+      "rmse": 0.555111,
+      "mae": 0.432599,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "(DXDLALE+DXDRALE+DXDLLLE+DXDRLLE)/height^2",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    },
+    {
+      "id": "nhanes-2017-2018-female-appendicular_lean_index-weighted-ols",
+      "source": "NHANES 2017-2018",
+      "source_url": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm",
+      "cycle": "2017-2018",
+      "sex": "female",
+      "target": "appendicular_lean_index",
+      "model_type": "weighted_ols",
+      "unit": "kg/m2",
+      "features": [
+        "body_weight_kg",
+        "height_cm",
+        "bmi",
+        "waist_cm",
+        "hip_cm",
+        "upper_arm_cm",
+        "age_years"
+      ],
+      "feature_means": {
+        "body_weight_kg": 74.71843051,
+        "height_cm": 161.91234879,
+        "bmi": 28.50473355,
+        "waist_cm": 94.17769538,
+        "hip_cm": 106.61569373,
+        "upper_arm_cm": 31.85531915,
+        "age_years": 38.29812582
+      },
+      "feature_scales": {
+        "body_weight_kg": 20.21879596,
+        "height_cm": 6.84277587,
+        "bmi": 7.45460745,
+        "waist_cm": 17.00588027,
+        "hip_cm": 14.41137902,
+        "upper_arm_cm": 5.46718755,
+        "age_years": 12.57932768
+      },
+      "coefficients": {
+        "intercept": 6.9782235459,
+        "body_weight_kg": 0.4311208888,
+        "height_cm": 0.1865169599,
+        "bmi": 2.0259468657,
+        "waist_cm": -0.6876806963,
+        "hip_cm": -0.509776473,
+        "upper_arm_cm": -0.0334578265,
+        "age_years": -0.088974955
+      },
+      "residual_sigma": 0.557206,
+      "prediction_interval_multiplier": 1.96,
+      "sample_n": 1270,
+      "weighted_sample_sum": 60815622.9082,
+      "r_squared": 0.84291,
+      "rmse": 0.557206,
+      "mae": 0.428626,
+      "source_files": [
+        "DEMO_J",
+        "BMX_J",
+        "DXX_J"
+      ],
+      "source_urls": {
+        "DEMO_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DEMO_J.htm",
+        "BMX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/BMX_J.htm",
+        "DXX_J": "https://wwwn.cdc.gov/Nchs/Data/Nhanes/Public/2017/DataFiles/DXX_J.htm"
+      },
+      "source_variables": {
+        "target": "(DXDLALE+DXDRALE+DXDLLLE+DXDRLLE)/height^2",
+        "features": {
+          "body_weight_kg": "BMXWT",
+          "height_cm": "BMXHT",
+          "bmi": "BMXBMI",
+          "waist_cm": "BMXWAIST",
+          "hip_cm": "BMXHIP",
+          "upper_arm_cm": "BMXARMC",
+          "age_years": "RIDAGEYR"
+        },
+        "weight": "WTMEC2YR"
+      },
+      "notes": "Weighted least-squares model trained on adults 18-59 using WTMEC2YR. DXA targets require DXAEXSTS=1 and region invalidity flags where applicable. Use as an inference aid with uncertainty, not as a medical measurement."
+    }
+  ]
+}

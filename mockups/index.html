@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weight Lifting Tracker Mockup</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="Low fidelity mobile app mockup">
+      <header class="status-bar">
+        <span>09:42</span>
+        <span>LTE 82%</span>
+      </header>
+
+      <section class="screen">
+        <div class="topline">
+          <div>
+            <p class="eyebrow">Today</p>
+            <h1>Day 3</h1>
+          </div>
+          <button class="icon-button" aria-label="Settings">...</button>
+        </div>
+
+        <div class="primary-panel">
+          <p class="panel-label">Suggested workout</p>
+          <h2>Push / Pull Mix</h2>
+          <p class="muted">Next planned day based on your last logged session.</p>
+          <div class="button-row">
+            <button class="primary">Start Day 3</button>
+            <button class="secondary">Freestyle</button>
+          </div>
+        </div>
+
+        <nav class="tabs" aria-label="Mockup pages">
+          <a href="index.html" class="active">Log</a>
+          <a href="exercise-setup.html">Setup</a>
+          <a href="location-resolver.html">Places</a>
+          <a href="analytics.html">Stats</a>
+        </nav>
+
+        <section id="log" class="mock-section">
+          <div class="section-head">
+            <h2>Log Set</h2>
+            <button class="small-button">Lift</button>
+          </div>
+
+          <div class="exercise-list big-list">
+            <button class="exercise big-exercise selected">
+              <span>
+                <strong>Landmine Row</strong>
+                <small>2 of 3 sets</small>
+              </span>
+              <span class="count">2</span>
+            </button>
+            <button class="exercise big-exercise">
+              <span>
+                <strong>Squat</strong>
+                <small>0 of 3 sets</small>
+              </span>
+              <span class="count">0</span>
+            </button>
+            <button class="exercise big-exercise">
+              <span>
+                <strong>Leg Raise</strong>
+                <small>0 of 6 sets</small>
+              </span>
+              <span class="count">0</span>
+            </button>
+          </div>
+
+          <div class="entry-panel quick-entry">
+            <div>
+              <p class="panel-label">Now</p>
+              <h3>Landmine Row</h3>
+            </div>
+            <div class="input-grid">
+              <label>
+                Reps
+                <input inputmode="numeric" value="8">
+              </label>
+              <label>
+                Weight
+                <input inputmode="decimal" value="55">
+              </label>
+            </div>
+            <button class="primary full big-action">Log set</button>
+          </div>
+
+          <div class="set-list">
+            <p class="panel-label">Last sets</p>
+            <div class="set-row">
+              <span>8 reps x 55 kg</span>
+              <small>09:38 Main Gym</small>
+              <button>Delete</button>
+            </div>
+            <div class="set-row">
+              <span>8 reps x 52.5 kg</span>
+              <small>09:32 Main Gym</small>
+              <button>Delete</button>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>

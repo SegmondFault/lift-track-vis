@@ -1,0 +1,1216 @@
+{
+  "schemaVersion": 1,
+  "source": "sanitized exercise reference",
+  "notes": "Generic exercise and muscle-contribution reference data.",
+  "muscleGroups": [
+    {
+      "id": "chest",
+      "name": "Chest",
+      "parentId": null,
+      "sortOrder": 10
+    },
+    {
+      "id": "upper-chest",
+      "name": "Upper Chest",
+      "parentId": "chest",
+      "sortOrder": 11
+    },
+    {
+      "id": "back",
+      "name": "Back",
+      "parentId": null,
+      "sortOrder": 20
+    },
+    {
+      "id": "upper-back",
+      "name": "Upper Back",
+      "parentId": "back",
+      "sortOrder": 21
+    },
+    {
+      "id": "lats",
+      "name": "Lats",
+      "parentId": "back",
+      "sortOrder": 22
+    },
+    {
+      "id": "biceps",
+      "name": "Biceps",
+      "parentId": null,
+      "sortOrder": 30
+    },
+    {
+      "id": "brachialis",
+      "name": "Brachialis",
+      "parentId": "biceps",
+      "sortOrder": 31
+    },
+    {
+      "id": "triceps",
+      "name": "Triceps",
+      "parentId": null,
+      "sortOrder": 40
+    },
+    {
+      "id": "shoulders",
+      "name": "Shoulders",
+      "parentId": null,
+      "sortOrder": 50
+    },
+    {
+      "id": "front-delts",
+      "name": "Front Delts",
+      "parentId": "shoulders",
+      "sortOrder": 51
+    },
+    {
+      "id": "side-delts",
+      "name": "Side Delts",
+      "parentId": "shoulders",
+      "sortOrder": 52
+    },
+    {
+      "id": "rear-delts",
+      "name": "Rear Delts",
+      "parentId": "shoulders",
+      "sortOrder": 53
+    },
+    {
+      "id": "quads",
+      "name": "Quads",
+      "parentId": null,
+      "sortOrder": 60
+    },
+    {
+      "id": "hamstrings",
+      "name": "Hamstrings",
+      "parentId": null,
+      "sortOrder": 70
+    },
+    {
+      "id": "glutes",
+      "name": "Glutes",
+      "parentId": null,
+      "sortOrder": 80
+    },
+    {
+      "id": "core",
+      "name": "Core / Abs",
+      "parentId": null,
+      "sortOrder": 90
+    },
+    {
+      "id": "spinal-erectors",
+      "name": "Spinal Erectors",
+      "parentId": "back",
+      "sortOrder": 99
+    }
+  ],
+  "exercises": [
+    {
+      "id": "bench-press",
+      "name": "Bench Press",
+      "aliases": [
+        "Bench heavy"
+      ],
+      "variations": [
+        {
+          "id": "bench-press__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Bench heavy"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "chest",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 0.7
+            },
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 0.5
+            }
+          ]
+        },
+        {
+          "id": "bench-press__close-grip",
+          "name": "Close Grip",
+          "isDefault": false,
+          "aliases": [],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "chest",
+              "coefficient": 0.75
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 0.45
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "compound"
+      ]
+    },
+    {
+      "id": "incline-bench-press",
+      "name": "Incline Bench Press",
+      "aliases": [
+        "Incline bench"
+      ],
+      "tags": [
+        "compound"
+      ],
+      "variations": [
+        {
+          "id": "incline-bench-press__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Incline bench"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "upper-chest",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "chest",
+              "coefficient": 0.8
+            },
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 0.7
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 0.65
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "incline-dumbbell-press",
+      "name": "Incline Dumbbell Press",
+      "aliases": [
+        "Incline Dumbell"
+      ],
+      "tags": [
+        "compound"
+      ],
+      "variations": [
+        {
+          "id": "incline-dumbbell-press__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Incline Dumbell"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "upper-chest",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "chest",
+              "coefficient": 0.75
+            },
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 0.65
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 0.55
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pull-up",
+      "name": "Pull-Up",
+      "aliases": [
+        "Pullups"
+      ],
+      "variations": [
+        {
+          "id": "pull-up__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Pullups"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "lats",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "upper-back",
+              "coefficient": 0.7
+            },
+            {
+              "muscleGroupId": "biceps",
+              "coefficient": 0.65
+            },
+            {
+              "muscleGroupId": "brachialis",
+              "coefficient": 0.45
+            },
+            {
+              "muscleGroupId": "core",
+              "coefficient": 0.25
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "compound"
+      ]
+    },
+    {
+      "id": "overhead-press",
+      "name": "Overhead Press",
+      "aliases": [
+        "Overhead press",
+        "Barbell overhead press"
+      ],
+      "variations": [
+        {
+          "id": "overhead-press__barbell",
+          "name": "Barbell",
+          "isDefault": true,
+          "aliases": [
+            "Overhead press",
+            "Barbell overhead press"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "side-delts",
+              "coefficient": 0.55
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 0.75
+            },
+            {
+              "muscleGroupId": "upper-chest",
+              "coefficient": 0.25
+            },
+            {
+              "muscleGroupId": "core",
+              "coefficient": 0.35
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "compound"
+      ]
+    },
+    {
+      "id": "dumbbell-shoulder-press",
+      "name": "Dumbbell Shoulder Press",
+      "aliases": [
+        "Dumbel Shoulder press"
+      ],
+      "variations": [
+        {
+          "id": "dumbbell-shoulder-press__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Dumbel Shoulder press"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "side-delts",
+              "coefficient": 0.65
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 0.6
+            },
+            {
+              "muscleGroupId": "upper-chest",
+              "coefficient": 0.2
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "compound"
+      ]
+    },
+    {
+      "id": "landmine-row",
+      "name": "Landmine Row",
+      "aliases": [],
+      "variations": [
+        {
+          "id": "landmine-row__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "upper-back",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "lats",
+              "coefficient": 0.8
+            },
+            {
+              "muscleGroupId": "rear-delts",
+              "coefficient": 0.55
+            },
+            {
+              "muscleGroupId": "biceps",
+              "coefficient": 0.5
+            },
+            {
+              "muscleGroupId": "brachialis",
+              "coefficient": 0.35
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "compound"
+      ]
+    },
+    {
+      "id": "squat",
+      "name": "Squat",
+      "aliases": [],
+      "variations": [
+        {
+          "id": "squat__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "quads",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "glutes",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "hamstrings",
+              "coefficient": 0.8
+            },
+            {
+              "muscleGroupId": "core",
+              "coefficient": 0.4
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "compound"
+      ]
+    },
+    {
+      "id": "squat-machine",
+      "name": "Squat Machine",
+      "aliases": [
+        "Squat machine"
+      ],
+      "variations": [
+        {
+          "id": "squat-machine__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Squat machine"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "quads",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "glutes",
+              "coefficient": 0.75
+            },
+            {
+              "muscleGroupId": "hamstrings",
+              "coefficient": 0.45
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "compound"
+      ]
+    },
+    {
+      "id": "deadlift",
+      "name": "Deadlift",
+      "aliases": [],
+      "variations": [
+        {
+          "id": "deadlift__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "glutes",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "hamstrings",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "upper-back",
+              "coefficient": 0.8
+            },
+            {
+              "muscleGroupId": "lats",
+              "coefficient": 0.5
+            },
+            {
+              "muscleGroupId": "quads",
+              "coefficient": 0.45
+            },
+            {
+              "muscleGroupId": "core",
+              "coefficient": 0.6
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "compound"
+      ]
+    },
+    {
+      "id": "chest-press-machine",
+      "name": "Chest Press Machine",
+      "aliases": [
+        "Chest Press"
+      ],
+      "tags": [
+        "compound",
+        "machine"
+      ],
+      "variations": [
+        {
+          "id": "chest-press-machine__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Chest Press"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "chest",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 0.6
+            },
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 0.45
+            },
+            {
+              "muscleGroupId": "upper-chest",
+              "coefficient": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "incline-chest-press-machine",
+      "name": "Incline Chest Press Machine",
+      "aliases": [],
+      "tags": [
+        "compound",
+        "machine"
+      ],
+      "variations": [
+        {
+          "id": "incline-chest-press-machine__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "upper-chest",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "chest",
+              "coefficient": 0.75
+            },
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 0.55
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 0.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lat-pulldown-machine",
+      "name": "Lat Pulldown Machine",
+      "aliases": [
+        "Lat Pulldown",
+        "Lat Pull",
+        "Lat Pull down",
+        "Lat pulldowns",
+        "Cable reverse pullup"
+      ],
+      "tags": [
+        "compound",
+        "machine"
+      ],
+      "variations": [
+        {
+          "id": "lat-pulldown-machine__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Lat Pulldown",
+            "Lat Pull",
+            "Lat Pull down",
+            "Lat pulldowns",
+            "Cable reverse pullup"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "lats",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "upper-back",
+              "coefficient": 0.6
+            },
+            {
+              "muscleGroupId": "biceps",
+              "coefficient": 0.45
+            },
+            {
+              "muscleGroupId": "rear-delts",
+              "coefficient": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "seated-row",
+      "name": "Seated Row Machine",
+      "aliases": [
+        "Seated Row",
+        "Seated Row Machine",
+        "Machine Row",
+        "Cable Row",
+        "Diverging Seat Row"
+      ],
+      "tags": [
+        "compound",
+        "machine"
+      ],
+      "variations": [
+        {
+          "id": "seated-row__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Seated Row",
+            "Seated Row Machine",
+            "Machine Row",
+            "Cable Row",
+            "Diverging Seat Row"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "upper-back",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "lats",
+              "coefficient": 0.85
+            },
+            {
+              "muscleGroupId": "biceps",
+              "coefficient": 0.45
+            },
+            {
+              "muscleGroupId": "rear-delts",
+              "coefficient": 0.35
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rear-delt-fly",
+      "name": "Rear Delt Fly Machine",
+      "aliases": [
+        "Rear Delt Fly",
+        "Rear delt full range"
+      ],
+      "tags": [
+        "accessory",
+        "machine"
+      ],
+      "variations": [
+        {
+          "id": "rear-delt-fly__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Rear Delt Fly",
+            "Rear delt full range"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "rear-delts",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "upper-back",
+              "coefficient": 0.35
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "back-extension",
+      "name": "Back Extension",
+      "aliases": [
+        "Back Extension"
+      ],
+      "tags": [
+        "accessory",
+        "machine"
+      ],
+      "variations": [
+        {
+          "id": "back-extension__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Back Extension"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "spinal-erectors",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "glutes",
+              "coefficient": 0.55
+            },
+            {
+              "muscleGroupId": "hamstrings",
+              "coefficient": 0.45
+            },
+            {
+              "muscleGroupId": "core",
+              "coefficient": 0.6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "romanian-deadlift",
+      "name": "Romanian Deadlift",
+      "aliases": [
+        "Romania Deadlift"
+      ],
+      "tags": [
+        "compound",
+        "barbell"
+      ],
+      "variations": [
+        {
+          "id": "romanian-deadlift__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Romania Deadlift"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "hamstrings",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "glutes",
+              "coefficient": 0.85
+            },
+            {
+              "muscleGroupId": "spinal-erectors",
+              "coefficient": 0.75
+            },
+            {
+              "muscleGroupId": "upper-back",
+              "coefficient": 0.25
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shoulder-press-machine",
+      "name": "Shoulder Press Machine",
+      "aliases": [
+        "Shoulder Press",
+        "Shouldpress machine",
+        "Should Press Machine"
+      ],
+      "tags": [
+        "compound",
+        "machine"
+      ],
+      "variations": [
+        {
+          "id": "shoulder-press-machine__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Shoulder Press",
+            "Shouldpress machine",
+            "Should Press Machine"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "side-delts",
+              "coefficient": 0.5
+            },
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 0.55
+            },
+            {
+              "muscleGroupId": "upper-chest",
+              "coefficient": 0.2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hammer-curl",
+      "name": "Hammer Curl",
+      "aliases": [
+        "Hammer curls"
+      ],
+      "variations": [
+        {
+          "id": "hammer-curl__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Hammer curls"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "brachialis",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "biceps",
+              "coefficient": 0.75
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory",
+        "machine"
+      ]
+    },
+    {
+      "id": "bicep-curl",
+      "name": "Bicep Curl",
+      "aliases": [
+        "Bicep curls"
+      ],
+      "variations": [
+        {
+          "id": "bicep-curl__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Bicep curls"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "biceps",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "brachialis",
+              "coefficient": 0.45
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    },
+    {
+      "id": "barbell-curl",
+      "name": "Barbell Curl",
+      "aliases": [
+        "Barbell curls"
+      ],
+      "variations": [
+        {
+          "id": "barbell-curl__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Barbell curls"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "biceps",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "brachialis",
+              "coefficient": 0.4
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory",
+        "barbell"
+      ]
+    },
+    {
+      "id": "preacher-curl",
+      "name": "Preacher Curl",
+      "aliases": [
+        "Preacher curls"
+      ],
+      "variations": [
+        {
+          "id": "preacher-curl__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Preacher curls"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "biceps",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "brachialis",
+              "coefficient": 0.35
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    },
+    {
+      "id": "overhead-dumbbell-triceps-extension",
+      "name": "Overhead Dumbbell Triceps Extension",
+      "aliases": [
+        "Overhead dumbell extension"
+      ],
+      "variations": [
+        {
+          "id": "overhead-dumbbell-triceps-extension__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Overhead dumbell extension"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 1
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    },
+    {
+      "id": "cable-triceps-extension",
+      "name": "Cable Triceps Extension",
+      "aliases": [
+        "Cable Tricep Extension"
+      ],
+      "variations": [
+        {
+          "id": "cable-triceps-extension__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Cable Tricep Extension"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 1
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    },
+    {
+      "id": "triceps-pushdown",
+      "name": "Triceps Pushdown",
+      "aliases": [
+        "Tricep Pushdown"
+      ],
+      "variations": [
+        {
+          "id": "triceps-pushdown__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Tricep Pushdown"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "triceps",
+              "coefficient": 1
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    },
+    {
+      "id": "lateral-raise",
+      "name": "Lateral Raise",
+      "aliases": [
+        "Laterall dumbell raises",
+        "Latt raises"
+      ],
+      "variations": [
+        {
+          "id": "lateral-raise__dumbbell",
+          "name": "Dumbbell",
+          "isDefault": true,
+          "aliases": [
+            "Laterall dumbell raises",
+            "Latt raises"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "side-delts",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 0.2
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    },
+    {
+      "id": "face-pull",
+      "name": "Face Pull",
+      "aliases": [
+        "Face Pulls"
+      ],
+      "variations": [
+        {
+          "id": "face-pull__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Face Pulls"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "rear-delts",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "upper-back",
+              "coefficient": 0.7
+            },
+            {
+              "muscleGroupId": "side-delts",
+              "coefficient": 0.25
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    },
+    {
+      "id": "pec-fly",
+      "name": "Pec Fly",
+      "aliases": [
+        "Pec Fly"
+      ],
+      "variations": [
+        {
+          "id": "pec-fly__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "chest",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "upper-chest",
+              "coefficient": 0.45
+            },
+            {
+              "muscleGroupId": "front-delts",
+              "coefficient": 0.25
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory",
+        "machine"
+      ]
+    },
+    {
+      "id": "glute-machine",
+      "name": "Glute Machine",
+      "aliases": [
+        "Glute Machine",
+        "Glute machine"
+      ],
+      "variations": [
+        {
+          "id": "glute-machine__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [
+            "Glute Machine",
+            "Glute machine"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "glutes",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "hamstrings",
+              "coefficient": 0.35
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    },
+    {
+      "id": "leg-raise",
+      "name": "Leg Raise",
+      "aliases": [
+        "Leg Raise",
+        "Hanging Leg Raise",
+        "Hanging Leg Raises"
+      ],
+      "variations": [
+        {
+          "id": "leg-raise__standard",
+          "name": "Standard",
+          "isDefault": true,
+          "aliases": [],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "core",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "quads",
+              "coefficient": 0.15
+            }
+          ]
+        },
+        {
+          "id": "leg-raise__hanging",
+          "name": "Hanging",
+          "isDefault": false,
+          "aliases": [
+            "Hanging Leg Raise",
+            "Hanging Leg Raises"
+          ],
+          "muscleContributions": [
+            {
+              "muscleGroupId": "core",
+              "coefficient": 1
+            },
+            {
+              "muscleGroupId": "quads",
+              "coefficient": 0.15
+            }
+          ]
+        }
+      ],
+      "tags": [
+        "accessory"
+      ]
+    }
+  ],
+  "workoutPlans": []
+}

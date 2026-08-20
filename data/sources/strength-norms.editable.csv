@@ -1,0 +1,7 @@
+id,source,source_url,exercise_id,sex,bodyweight_min,bodyweight_max,level,metric,value,notes
+starter-male-bench-novice,editable starter,,bench-press,male,,,novice,e1rm_per_bodyweight,0.8,Placeholder until replaced with cited external data
+starter-male-bench-intermediate,editable starter,,bench-press,male,,,intermediate,e1rm_per_bodyweight,1.15,Placeholder until replaced with cited external data
+starter-male-bench-advanced,editable starter,,bench-press,male,,,advanced,e1rm_per_bodyweight,1.55,Placeholder until replaced with cited external data
+starter-female-bench-novice,editable starter,,bench-press,female,,,novice,e1rm_per_bodyweight,0.45,Placeholder until replaced with cited external data
+starter-female-bench-intermediate,editable starter,,bench-press,female,,,intermediate,e1rm_per_bodyweight,0.7,Placeholder until replaced with cited external data
+starter-female-bench-advanced,editable starter,,bench-press,female,,,advanced,e1rm_per_bodyweight,0.95,Placeholder until replaced with cited external data

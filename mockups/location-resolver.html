@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Location Resolver Mockup</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="Location resolver mobile mockup">
+      <header class="status-bar">
+        <span>09:42</span>
+        <span>LTE 82%</span>
+      </header>
+
+      <section class="screen">
+        <div class="topline">
+          <div>
+            <p class="eyebrow">Global</p>
+            <h1>Places</h1>
+          </div>
+          <button class="icon-button" aria-label="Settings">...</button>
+        </div>
+
+        <nav class="tabs" aria-label="Mockup pages">
+          <a href="index.html">Log</a>
+          <a href="exercise-setup.html">Setup</a>
+          <a href="location-resolver.html" class="active">Places</a>
+          <a href="analytics.html">Stats</a>
+        </nav>
+
+        <section class="mock-section">
+          <div class="section-head">
+            <h2>Automatic Rules</h2>
+            <button class="small-button">New</button>
+          </div>
+          <div class="rule-list">
+            <div class="rule-row">
+              <strong>Main Gym</strong>
+              <small>150 m radius / auto-tagging on</small>
+            </div>
+            <div class="rule-row">
+              <strong>Home</strong>
+              <small>80 m radius / auto-tagging on</small>
+            </div>
+          </div>
+        </section>
+
+        <section class="mock-section">
+          <div class="section-head">
+            <h2>Unresolved GPS</h2>
+            <button class="small-button">Resolve</button>
+          </div>
+          <div class="cluster-card">
+            <p class="panel-label">New location cluster</p>
+            <h3>18 sets near current gym</h3>
+            <p class="muted">Jun 6 to Jun 10. Create a rule once, then future matching GPS is stored as a tag.</p>
+            <label>
+              Location tag
+              <input value="Main Gym">
+            </label>
+            <div class="button-row">
+              <button class="primary">Create rule</button>
+              <button class="secondary">Use existing</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="mock-section">
+          <div class="info-strip">
+            <strong>Normal history shows tags.</strong>
+            <span>Raw coordinates stay hidden once a place is resolved.</span>
+          </div>
+        </section>
+      </section>
+    </main>
+  </body>
+</html>
+
