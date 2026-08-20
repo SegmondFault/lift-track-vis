@@ -1,5 +1,6 @@
 # Operating-system and editor state
 .DS_Store
+._*
 .dev-logs/
 *.log
 *.swp
