@@ -36,7 +36,7 @@ Keep that terminal open. Press `Ctrl-C` to stop the manually run service.
 ## 3. Install private Tailscale hosting
 
 ```sh
-./scripts/install-gray-area-service.sh
+./scripts/install-private-service.sh
 ```
 
 The installer dynamically discovers the host's Tailscale IP, MagicDNS hostname,
@@ -49,7 +49,7 @@ friendlier HTTPS form, run once and reinstall:
 
 ```sh
 sudo tailscale set --operator="$USER"
-./scripts/install-gray-area-service.sh
+./scripts/install-private-service.sh
 ```
 
 Do not enable Tailscale Funnel; Funnel would publish the tracker to the internet.

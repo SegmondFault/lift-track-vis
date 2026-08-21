@@ -7,6 +7,8 @@ with optional tailnet-only access through Tailscale.
 See [QUICKSTART.md](QUICKSTART.md) for installation, private URLs, navigation,
 data locations, and troubleshooting.
 
+Licensed under the [Apache License 2.0](LICENSE).
+
 ## Run the tracker
 
 From this folder, run:
@@ -89,9 +91,9 @@ The tracker can run as a private user service bound to the host's Tailscale
 address:
 
 ```sh
-./scripts/install-gray-area-service.sh
+./scripts/install-private-service.sh
 ```
 
-See `docs/gray-area-deployment.md` for deployment, privacy, and Wake-on-LAN
+See `docs/private-deployment.md` for deployment, privacy, and Wake-on-LAN
 details. Personal workout data is deliberately excluded from Git and the GitHub
 repository is private.

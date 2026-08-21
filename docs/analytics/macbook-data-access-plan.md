@@ -4,7 +4,7 @@
 > service. The implemented system now hosts the phone logger and analytics from
 > one Python service, writes both directly to the workstation SQLite database,
 > and exposes them privately through Tailscale. See `QUICKSTART.md` and
-> `docs/gray-area-deployment.md` for current operation. The analytics definitions
+> `docs/private-deployment.md` for current operation. The analytics definitions
 > below remain useful background.
 
 ## Recommendation

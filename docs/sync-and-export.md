@@ -7,7 +7,7 @@ outside the browser interface.
 
 ## Canonical Store
 
-The private tracker service on `gray-area` uses SQLite as the canonical database.
+The private tracker service on the host uses SQLite as the canonical database.
 
 Benefits:
 

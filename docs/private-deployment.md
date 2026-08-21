@@ -1,35 +1,35 @@
-# Private deployment on gray-area
+# Private deployment
 
 The web tracker runs as a user service on port `5175`. The installer prefers a
 loopback service exposed with Tailscale Serve. If Serve is unavailable, it binds
-only to the workstation's Tailscale IP. In both cases the page is reachable by
-permitted tailnet devices but is not published to the internet.
+only to the host's Tailscale IP. In both cases the page is reachable by permitted
+tailnet devices but is not published to the internet.
 
 ## Install or update
 
 From the cloned `lift-track-vis` repository:
 
 ```sh
-./scripts/install-gray-area-service.sh
+./scripts/install-private-service.sh
 ```
 
-The installer migrates the former `mobile-exercise-tracker.service` installation
-to `lift-track-vis.service`, then removes the obsolete unit/config files after
-the new service is configured.
+The installer migrates the former service installation to
+`lift-track-vis.service`, then removes obsolete unit/config files after the new
+service is configured.
 
 The command prefers a private HTTPS URL through Tailscale Serve. If the current
 user is not permitted to configure Serve, it falls back to binding port `5175`
 only on the host's Tailscale IP. The installer dynamically reads the machine's
 MagicDNS name from `tailscale status --json` and publishes a stable
-`http://machine-name.tailnet.ts.net:5175/` URL. It does not hardcode this
-workstation's hostname, tailnet suffix, or Tailscale IP, so the same setup can be
-repeated by another user. That fallback is still encrypted in transit by
-Tailscale and is not bound to the LAN.
-Do not use Tailscale Funnel for this project: Funnel would make the page public.
+`http://machine-name.tailnet.ts.net:5175/` URL. It does not hardcode a hostname,
+tailnet suffix, or Tailscale IP, so the same setup can be repeated on another
+host. That fallback is still encrypted in transit by Tailscale and is not bound
+to the LAN. Do not use Tailscale Funnel for this project: Funnel would make the
+page public.
 
 The server returns the discovered computer and phone URLs from `/api/status`.
-The visualizer renders both beneath its title, allowing any permitted tailnet
-device to open or copy the appropriate address.
+The analytics interface renders both beneath its title, allowing any permitted
+tailnet device to open or copy the appropriate address.
 
 Use `/phone/` on the printed base URL for the focused phone logger. Its Simple /
 Complex choice is saved in that browser, so the same bookmarked URL opens in
