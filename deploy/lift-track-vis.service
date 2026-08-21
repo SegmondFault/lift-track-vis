@@ -1,0 +1,18 @@
+[Unit]
+Description=lift-track-vis private web service
+After=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=@ROOT_DIR@
+Environment=TRACKER_API_HOST=127.0.0.1
+EnvironmentFile=-@ENVIRONMENT_FILE@
+ExecStart=/usr/bin/python3 @ROOT_DIR@/scripts/tracker-api.py 5175
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=default.target

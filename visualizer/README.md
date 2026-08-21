@@ -1,22 +1,24 @@
-# Lifting Tracker Visualizer
+# lift-track-vis
 
-This is the local, read-only Mac visualizer for phone exports.
+This is the full analytics and data-management interface for the private tracker.
+See `../QUICKSTART.md` for the complete setup and navigation guide.
 
 ## Use
 
 From the repository root:
 
 ```sh
-python3 -m http.server 5174
+./scripts/start-tracker.sh
 ```
 
 Then open:
 
 ```text
-http://127.0.0.1:5174/visualizer/
+http://127.0.0.1:5175/
 ```
 
-Import the `full-backup.json` file shared from the phone app. The visualizer does not write changes back to the phone in v1.
+The service loads its generated backup automatically. Sets logged from `/phone/`
+or the full `Log` page are written directly to the same SQLite database.
 
 For local testing, the `Import most recent` button loads:
 
@@ -31,9 +33,12 @@ node scripts/build-visualizer-most-recent.js
 python3 scripts/build-mac-ground-truth.py
 ```
 
-The first command assembles the latest local snapshot from cleaned workbook data, recent manual imports, plans, bodyweight entries, and norms. The second command upserts that snapshot into the Mac-side SQLite ground truth database and regenerates the browser-facing JSON from the database.
+The first command assembles the latest local snapshot from cleaned workbook data,
+recent manual imports, plans, bodyweight entries, and norms. The second command
+upserts that snapshot into the server-side SQLite ground truth database and
+regenerates the browser-facing JSON.
 
-The durable Mac database lives at:
+The durable server database lives at:
 
 ```text
 data/mac/lifting-tracker.sqlite
@@ -43,8 +48,10 @@ data/mac/lifting-tracker.sqlite
 
 - Overview: current week sets, volume, sessions, plan status, this-week muscle volume, and current-week sessions.
 - Benchmarks: current best Epley e1RM, e1RM trends through time, bodyweight normalization, and external norm comparison.
-- Training volume: weekly volume and set-count trends, plus weekly plan adherence.
-- Muscle groups: coefficient-based muscle volume trends and coefficient-weighted e1RM strength index trends.
-- Imports: remembered phone exports and cached table counts.
+- Training volume: weekly volume and set-count trends, weekly plan adherence, and nested muscle-group analysis.
+- Biometrics: measurements, experimental body-composition models, athlete comparisons, and growth forecasts.
+- Settings: general preferences, plans, and historical imports.
 
-Full phone exports are merged by stable table row IDs. Importing the same export again updates rows instead of duplicating sets. The phone remains the fast capture device; the Mac SQLite database is the canonical analysis store after import and cleanup.
+Full backups are merged by stable table row IDs. Importing the same export again
+updates rows instead of duplicating sets. The host SQLite database is the
+canonical store; the phone browser is the fast capture interface.

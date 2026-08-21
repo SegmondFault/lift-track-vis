@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Lifting Tracker Visualizer</title>
+    <title>lift-track-vis</title>
     <style>
       :root {
         color: #eef5ee;
@@ -66,6 +66,31 @@
       h1 {
         font-size: clamp(2rem, 4vw, 4rem);
         line-height: 0.96;
+      }
+
+      .tracker-addresses {
+        display: grid;
+        gap: 7px;
+        margin-top: 16px;
+      }
+
+      .tracker-address {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 8px;
+      }
+
+      .tracker-address strong {
+        min-width: 78px;
+        color: var(--muted-strong);
+      }
+
+      .tracker-address a {
+        color: var(--green);
+        font-size: clamp(1rem, 2vw, 1.18rem);
+        font-weight: 800;
+        overflow-wrap: anywhere;
       }
 
       h2 {
@@ -147,6 +172,47 @@
         flex-wrap: wrap;
         gap: 8px;
         margin-top: 8px;
+      }
+
+      .workspace-nav {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 14px;
+        padding-top: 14px;
+        border-top: 1px solid var(--border-soft);
+      }
+
+      button.workspace-nav-button {
+        background: transparent;
+        color: var(--muted-strong);
+        border: 1px solid var(--border);
+      }
+
+      button.workspace-nav-button.active {
+        background: var(--button);
+        border-color: var(--button);
+        color: var(--button-text);
+      }
+
+      .experimental-notice {
+        margin-top: 14px;
+        padding: 12px 14px;
+        border: 1px solid color-mix(in srgb, var(--amber) 70%, var(--border));
+        border-radius: 6px;
+        background: rgba(228, 180, 100, 0.1);
+        color: var(--muted-strong);
+      }
+
+      .experimental-notice strong {
+        display: block;
+        margin-bottom: 3px;
+        color: var(--amber);
+      }
+
+      .import-controls {
+        display: grid;
+        gap: 14px;
       }
 
       .toggle-row {
@@ -544,45 +610,53 @@
       <header>
         <div>
           <p class="muted">Local read-only analytics</p>
-          <h1>Lifting Tracker Visualizer</h1>
+          <h1>lift-track-vis</h1>
+          <div class="tracker-addresses" aria-label="Private tracker addresses">
+            <div class="tracker-address">
+              <strong>Computer</strong>
+              <a id="tracker-desktop-url" href="/">Checking private address…</a>
+            </div>
+            <div class="tracker-address">
+              <strong>Phone</strong>
+              <a id="tracker-phone-url" href="/phone/">Checking private address…</a>
+            </div>
+          </div>
         </div>
-        <div class="toolbar">
-          <input id="file-input" type="file" accept=".json,application/json" />
-          <label class="muted" for="sex-select">Norms</label>
-          <select id="sex-select">
-            <option value="auto">Auto</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-            <option value="unspecified">Unset</option>
-          </select>
-          <label class="muted" for="week-start-select">Week starts</label>
-          <select id="week-start-select">
-            <option value="monday">Monday</option>
-          </select>
-          <label class="muted" for="period-select">Period</label>
-          <select id="period-select">
-            <option value="all">All data</option>
-            <option value="52">1 year</option>
-            <option value="26">6 months</option>
-            <option value="12">12 weeks</option>
-          </select>
-          <button id="sample-button" class="secondary" type="button">Import most recent</button>
-          <span id="status" class="muted">Import full-backup.json from the phone export.</span>
+        <div id="import-controls-dock" hidden>
+          <div id="import-controls" class="import-controls">
+            <div class="toolbar">
+              <input id="file-input" type="file" accept=".json,application/json" />
+              <label class="muted" for="sex-select">Norms</label>
+              <select id="sex-select">
+                <option value="auto">Auto</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="unspecified">Unset</option>
+              </select>
+              <label class="muted" for="week-start-select">Week starts</label>
+              <select id="week-start-select">
+                <option value="monday">Monday</option>
+              </select>
+              <label class="muted" for="period-select">Period</label>
+              <select id="period-select">
+                <option value="all">All data</option>
+                <option value="52">1 year</option>
+                <option value="26">6 months</option>
+                <option value="12">12 weeks</option>
+              </select>
+              <button id="sample-button" class="secondary" type="button">Import most recent</button>
+              <span id="status" class="muted">Import full-backup.json from the phone export.</span>
+            </div>
+            <div id="freshness" class="panel freshness-panel"></div>
+          </div>
         </div>
-        <div id="freshness" class="panel freshness-panel"></div>
         <nav id="page-nav" class="page-nav" aria-label="Visualizer pages">
           <button class="nav-button active" type="button" data-page="overview">Overview</button>
           <button class="nav-button" type="button" data-page="log">Log</button>
-          <button class="nav-button" type="button" data-page="week-compare">Week compare</button>
-          <button class="nav-button" type="button" data-page="plans">Plans</button>
+          <button class="nav-button" type="button" data-page="week-compare">Week to week</button>
           <button class="nav-button" type="button" data-page="benchmarks">Benchmarks</button>
           <button class="nav-button" type="button" data-page="biometrics">Biometrics</button>
-          <button class="nav-button" type="button" data-page="body-composition">Body composition</button>
-        <button class="nav-button" type="button" data-page="athlete-model">Athlete model</button>
-        <button class="nav-button" type="button" data-page="growth">Growth forecast</button>
           <button class="nav-button" type="button" data-page="volume">Training volume</button>
-          <button class="nav-button" type="button" data-page="muscles">Muscle groups</button>
-          <button class="nav-button" type="button" data-page="imports">Imports</button>
           <button class="nav-button" type="button" data-page="settings">Settings</button>
         </nav>
       </header>
@@ -600,8 +674,15 @@
       const periodSelect = document.getElementById("period-select");
       const sampleButton = document.getElementById("sample-button");
       const pageNav = document.getElementById("page-nav");
+      const importControlsDock = document.getElementById("import-controls-dock");
+      const importControls = document.getElementById("import-controls");
+      const trackerDesktopUrl = document.getElementById("tracker-desktop-url");
+      const trackerPhoneUrl = document.getElementById("tracker-phone-url");
       let currentImport = null;
       let currentPage = "overview";
+      let currentBiometricsSection = "measurements";
+      let currentTrainingVolumeSection = "overview";
+      let currentSettingsSection = "general";
       let normalizeBenchmarks = false;
       let benchmarkOverlayRange = "all";
       let desktopSetDateValue = "";
@@ -4646,7 +4727,7 @@
 
           <section class="panel" style="margin-top: 18px;">
             <div class="bar-label">
-              <h2>${savedTodaySets.length ? "Today's saved Mac sets" : "Recent saved Mac sets"}</h2>
+              <h2>${savedTodaySets.length ? "Today's saved sets" : "Recent saved sets"}</h2>
               <div class="pill-row" style="justify-content: flex-end;">
                 <span class="pill ${savedTodaySets.length ? "good" : "watch"}">${formatNumber(savedTodaySets.length, 0)} today</span>
                 <span class="pill good">${formatNumber(activeSavedSets.length, 0)} active total</span>
@@ -4682,7 +4763,7 @@
                       </tbody>
                     </table>
                   </div>`
-                : `<p class="muted" style="margin-top: 12px;">No saved Mac sets yet.</p>`
+                : `<p class="muted" style="margin-top: 12px;">No saved sets yet.</p>`
             }
           </section>
 
@@ -5195,7 +5276,7 @@
         return `
           <section class="panel">
             <div class="bar-label">
-              <h2>Week compare</h2>
+              <h2>Week to week</h2>
               <span class="muted">${formatWeekRange(currentWeek)} vs ${formatWeekRange(previousWeek)}</span>
             </div>
             <div class="pill-row">
@@ -6047,10 +6128,6 @@
               : latestComplete.sets >= medianCompleteSets * 0.7
                 ? "watch"
                 : "bad";
-        const benchRows = (summary.exerciseWeeklyBest || []).filter((row) => row.exerciseId === "bench-press");
-        const benchBest = benchRows.reduce((best, row) => (!best || row.e1rm > best.e1rm ? row : best), null);
-        const benchLatest = benchRows.reduce((latest, row) => (!latest || row.week > latest.week ? row : latest), null);
-        const benchStatus = benchBest && benchLatest && benchLatest.e1rm >= benchBest.e1rm * 0.99 ? "good" : "watch";
         const currentStatus = summary.currentWeekStats.sets > 0 ? "good" : "watch";
         const planCompletion = summary.planProgress?.completion;
         const planInScope = summary.planProgress?.plannedSets || 0;
@@ -6066,14 +6143,12 @@
           <section class="grid metrics">
             <div class="metric-card ${currentStatus}"><span class="muted">Current week</span><span class="metric-value">${summary.currentWeekStats.sets || 0}</span><span class="muted">sets so far</span></div>
             <div class="metric-card ${volumeStatus}"><span class="muted">Latest complete week</span><span class="metric-value">${latestComplete ? latestComplete.sets : "-"}</span><span class="muted">${latestComplete ? `${formatWeekRange(latestComplete.week)}, median ${formatNumber(medianCompleteSets, 1)}` : "missing"}</span></div>
-            <div class="metric-card ${benchStatus}"><span class="muted">Bench e1RM</span><span class="metric-value">${benchLatest ? `${formatNumber(benchLatest.e1rm, 1)}` : "-"}</span><span class="muted">${benchLatest ? `${formatWeekRange(benchLatest.week)}; best ${formatNumber(benchBest.e1rm, 1)}` : "missing"}</span></div>
             <div class="metric-card ${planStatus}"><span class="muted">Plan in scope</span><span class="metric-value">${planInScope || "-"}</span><span class="muted">${planActual} actual matched${planCopied ? `, ${planCopied} copied` : ""}${planExtras ? `, ${planExtras} extra` : ""}</span></div>
           </section>
 
           <section class="panel">
             <h2>Overall overview</h2>
             <div class="pill-row">
-              <span class="pill ${benchStatus}">Bench ${benchStatus === "good" ? "at recent high" : "below imported best"}</span>
               <span class="pill ${volumeStatus}">Latest complete week ${volumeStatus === "good" ? "above median sets" : volumeStatus === "watch" ? "near/lower than median" : "well below median"}</span>
               <span class="pill ${currentStatus}">Current week ${summary.currentWeekStats.sets ? "in progress" : "no sets yet"}</span>
               <span class="pill ${planStatus}">Plan ${summary.planProgress ? `${summary.planProgress.expectedDays}/${summary.planProgress.totalDays} days represented` : "not assigned"}</span>
@@ -7011,6 +7086,7 @@
         const counts = summary.tableCounts || {};
 
         return `
+          <div id="imports-controls-slot" class="grid" style="margin-bottom: 18px;"></div>
           <section class="grid metrics">
             <div class="metric-card"><span class="muted">Remembered imports</span><span class="metric-value">${history.length}</span></div>
             <div class="metric-card"><span class="muted">Cached sets</span><span class="metric-value">${counts.lift_set || summary.setCount}</span></div>
@@ -7177,9 +7253,141 @@
         `;
       }
 
+      function renderBiometricsHub(summary) {
+        const sections = [
+          ["measurements", "Measurements"],
+          ["body-composition", "Body composition"],
+          ["athlete-model", "Athlete model"],
+          ["growth", "Growth forecast"],
+        ];
+        const content =
+          currentBiometricsSection === "body-composition"
+            ? renderBodyComposition(summary)
+            : currentBiometricsSection === "athlete-model"
+              ? renderAthleteModel(summary)
+              : currentBiometricsSection === "growth"
+                ? renderGrowthForecast(summary)
+                : renderBiometrics(summary);
+
+        return `
+          <section class="panel">
+            <div class="bar-label">
+              <div>
+                <h2>Biometrics</h2>
+                <p class="muted">Measurements, body composition, athlete comparisons, and growth projections in one workspace.</p>
+              </div>
+            </div>
+            <aside class="experimental-notice" aria-label="Experimental biometrics notice">
+              <strong>Heuristic &amp; experimental</strong>
+              Everything in this workspace is exploratory and model-dependent. Treat measurements, estimates, comparisons, and forecasts as directional signals—not medical findings, diagnoses, or reliable predictions.
+            </aside>
+            <nav class="workspace-nav" aria-label="Biometrics sections">
+              ${sections
+                .map(
+                  ([id, label]) => `
+                    <button
+                      class="workspace-nav-button ${currentBiometricsSection === id ? "active" : ""}"
+                      type="button"
+                      data-biometrics-section="${id}"
+                      aria-pressed="${currentBiometricsSection === id ? "true" : "false"}"
+                    >${label}</button>
+                  `,
+                )
+                .join("")}
+            </nav>
+          </section>
+          <div style="margin-top: 18px;">
+            ${content}
+          </div>
+        `;
+      }
+
+      function renderTrainingVolumeHub(summary) {
+        const sections = [
+          ["overview", "Volume overview"],
+          ["muscles", "Muscle groups"],
+        ];
+        const content = currentTrainingVolumeSection === "muscles"
+          ? renderMuscleGroups(summary)
+          : renderTrainingVolume(summary);
+
+        return `
+          <section class="panel">
+            <div class="bar-label">
+              <div>
+                <h2>Training volume</h2>
+                <p class="muted">Overall workload and muscle-group distribution in one workspace.</p>
+              </div>
+            </div>
+            <nav class="workspace-nav" aria-label="Training volume sections">
+              ${sections
+                .map(
+                  ([id, label]) => `
+                    <button
+                      class="workspace-nav-button ${currentTrainingVolumeSection === id ? "active" : ""}"
+                      type="button"
+                      data-training-volume-section="${id}"
+                      aria-pressed="${currentTrainingVolumeSection === id ? "true" : "false"}"
+                    >${label}</button>
+                  `,
+                )
+                .join("")}
+            </nav>
+          </section>
+          <div style="margin-top: 18px;">
+            ${content}
+          </div>
+        `;
+      }
+
+      function renderSettingsHub(summary) {
+        const sections = [
+          ["general", "General settings"],
+          ["plans", "Plans"],
+          ["imports", "Imports"],
+        ];
+        const content = currentSettingsSection === "plans"
+          ? renderPlans(summary)
+          : currentSettingsSection === "imports"
+            ? renderImports(summary)
+            : renderSettings(summary);
+
+        return `
+          <section class="panel">
+            <div class="bar-label">
+              <div>
+                <h2>Settings</h2>
+                <p class="muted">Visualizer preferences, profile configuration, training plans, and data imports.</p>
+              </div>
+            </div>
+            <nav class="workspace-nav" aria-label="Settings sections">
+              ${sections
+                .map(
+                  ([id, label]) => `
+                    <button
+                      class="workspace-nav-button ${currentSettingsSection === id ? "active" : ""}"
+                      type="button"
+                      data-settings-section="${id}"
+                      aria-pressed="${currentSettingsSection === id ? "true" : "false"}"
+                    >${label}</button>
+                  `,
+                )
+                .join("")}
+            </nav>
+          </section>
+          <div style="margin-top: 18px;">
+            ${content}
+          </div>
+        `;
+      }
+
       function render(imported) {
         currentImport = imported;
         const summary = summarize(imported);
+
+        if (importControls.parentElement !== importControlsDock) {
+          importControlsDock.appendChild(importControls);
+        }
 
         root.className = "";
         root.innerHTML =
@@ -7187,27 +7395,38 @@
             ? renderBenchmarks(summary)
             : currentPage === "log"
               ? renderDesktopLog(summary)
-            : currentPage === "week-compare"
-              ? renderWeekCompare(summary)
-              : currentPage === "plans"
-                ? renderPlans(summary)
+              : currentPage === "week-compare"
+                ? renderWeekCompare(summary)
                 : currentPage === "biometrics"
-                  ? renderBiometrics(summary)
-                : currentPage === "body-composition"
-                  ? renderBodyComposition(summary)
-                  : currentPage === "athlete-model"
-                    ? renderAthleteModel(summary)
-                    : currentPage === "growth"
-                      ? renderGrowthForecast(summary)
-                      : currentPage === "volume"
-                        ? renderTrainingVolume(summary)
-                        : currentPage === "muscles"
-                          ? renderMuscleGroups(summary)
-                          : currentPage === "imports"
-                            ? renderImports(summary)
-                            : currentPage === "settings"
-                              ? renderSettings(summary)
-                              : renderOverview(summary);
+                    ? renderBiometricsHub(summary)
+                    : currentPage === "volume"
+                      ? renderTrainingVolumeHub(summary)
+                      : currentPage === "settings"
+                        ? renderSettingsHub(summary)
+                        : renderOverview(summary);
+
+        document.getElementById("imports-controls-slot")?.appendChild(importControls);
+
+        document.querySelectorAll("[data-biometrics-section]").forEach((button) => {
+          button.addEventListener("click", () => {
+            currentBiometricsSection = button.dataset.biometricsSection || "measurements";
+            render(currentImport);
+          });
+        });
+
+        document.querySelectorAll("[data-training-volume-section]").forEach((button) => {
+          button.addEventListener("click", () => {
+            currentTrainingVolumeSection = button.dataset.trainingVolumeSection || "overview";
+            render(currentImport);
+          });
+        });
+
+        document.querySelectorAll("[data-settings-section]").forEach((button) => {
+          button.addEventListener("click", () => {
+            currentSettingsSection = button.dataset.settingsSection || "general";
+            render(currentImport);
+          });
+        });
 
         document.querySelectorAll("#normalize-toggle").forEach((toggle) => {
           toggle.addEventListener("change", (event) => {
@@ -7865,12 +8084,12 @@
         });
 
         document.getElementById("desktop-download-button")?.addEventListener("click", () => {
-          downloadJson("desktop-lift-backup.json", desktopLogBackup());
+          downloadJson("lift-track-vis-backup.json", desktopLogBackup());
         });
 
         document.getElementById("desktop-rescue-origin-button")?.addEventListener("click", () => {
           const alternateHost = window.location.hostname === "localhost" ? "127.0.0.1" : "localhost";
-          const rescueUrl = `${window.location.protocol}//${alternateHost}:${window.location.port || "5174"}${window.location.pathname}?local-storage-export=1`;
+          const rescueUrl = `${window.location.protocol}//${alternateHost}:${window.location.port || "5175"}${window.location.pathname}?local-storage-export=1`;
           const popup = window.open(rescueUrl, "lifting-tracker-draft-rescue", "popup,width=520,height=360");
           status.textContent = popup
             ? `Looking for a browser draft on ${alternateHost}...`
@@ -7902,6 +8121,23 @@
           throw new Error(`${response.status} ${response.statusText}`.trim());
         }
         return response.json();
+      }
+
+      async function refreshTrackerAddresses() {
+        const fallbackBase = window.location.origin === "null" ? desktopApiBase : window.location.origin;
+        let desktopUrl = `${fallbackBase.replace(/\/$/, "")}/`;
+        let phoneUrl = `${fallbackBase.replace(/\/$/, "")}/phone/`;
+        try {
+          const trackerStatus = await fetchJsonOrThrow(`${desktopApiBase}/api/status?cacheBust=${Date.now()}`);
+          desktopUrl = trackerStatus.access?.baseUrl || desktopUrl;
+          phoneUrl = trackerStatus.access?.phoneUrl || phoneUrl;
+        } catch {
+          // Keep showing the address used to load this page if status cannot be refreshed.
+        }
+        trackerDesktopUrl.href = desktopUrl;
+        trackerDesktopUrl.textContent = desktopUrl;
+        trackerPhoneUrl.href = phoneUrl;
+        trackerPhoneUrl.textContent = phoneUrl;
       }
 
       async function loadMacGroundTruthExport() {
@@ -7969,6 +8205,7 @@
 
       applyImportedSettings({}, false);
       renderFreshness();
+      refreshTrackerAddresses();
       importMostRecentExport().catch((error) => {
         const storedDataset = loadStoredDataset();
         if (storedDataset) {
@@ -7979,7 +8216,7 @@
             <section class="card">
               <h2>Mac backup not loaded</h2>
               <p class="muted">No browser cache exists here, and the Mac ground-truth backup could not be reached.</p>
-              <p class="muted">Run <code>workout</code>, then open <code>http://127.0.0.1:5174/visualizer/</code>. Your saved data lives in <code>data/mac/lifting-tracker.sqlite</code>, not in this browser tab.</p>
+              <p class="muted">Run <code>workout</code>, then open <code>http://127.0.0.1:5175/</code>. Your saved data lives in <code>data/mac/lifting-tracker.sqlite</code>, not in this browser tab.</p>
             </section>
           `;
           status.textContent = `Mac backup unavailable: ${error.message}`;

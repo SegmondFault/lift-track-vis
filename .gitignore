@@ -22,17 +22,6 @@ __pycache__/
 .private/
 .claude/
 
-# Dependencies and generated mobile output
-mobile/node_modules/
-mobile/.expo/
-mobile/dist/
-mobile/web-build/
-mobile/ios/
-mobile/android/
-mobile/.kotlin/
-mobile/expo-env.d.ts
-mobile/*.tsbuildinfo
-
 # Personal source material and runtime data. Never commit these paths.
 Workouts.xlsx
 Training Regime*.csv
@@ -49,4 +38,5 @@ data/workout-plan.seed.json
 # Local exports that may contain health, workout, or location information
 *.full-backup.json
 desktop-lift-backup.json
+lift-track-vis-backup.json
 phone-plan-context.json

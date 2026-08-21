@@ -1,29 +1,32 @@
-# Weight Lifting Tracker Product Spec
+# lift-track-vis Product Spec
 
 ## Goal
 
-Build a local-first mobile weight lifting tracker for use in the gym, with iOS as the first-class target and Android as a likely future target. The app should make set logging fast while producing clean, exportable data for long-term analytics.
+Build a private weight-lifting tracker for use in the gym. The phone experience
+should make set logging fast while the fuller web view provides clean,
+exportable data for long-term analytics.
 
 ## Product Principles
 
 - Logging a set should take only a few seconds.
 - The raw set log is the source of truth.
 - Derived structures, such as exercise blocks and analytics aggregates, should be recalculable.
-- The user owns the data and can export it to a home machine.
-- The app should work offline in a gym.
-- Later sync should support mobile-to-computer and computer-to-mobile correction workflows.
+- The user owns the data and can export it from the private server.
+- The logger should be reachable only over the user's Tailscale network.
+- Loss of connectivity must produce an obvious error rather than pretending a set was saved.
 
-## Recommended Stack
+## Stack
 
-Use React Native with Expo, TypeScript, and SQLite.
+Use a dependency-free HTML/CSS/JavaScript phone page, a Python standard-library
+HTTP service, and SQLite.
 
 Reasons:
 
-- One mobile codebase for iOS and Android.
-- TypeScript is relatively easy to inspect and audit.
-- SQLite gives durable, queryable, user-owned local data.
-- Expo provides practical access to GPS, file export, sharing, and mobile build tooling.
-- The same data can later be exported as SQLite, CSV, JSON, or NDJSON.
+- The same private URL works in iOS and Android browsers.
+- No app installation, build service, or package manager is required.
+- SQLite gives durable, queryable, user-owned data on the host workstation.
+- Tailscale provides encrypted, tailnet-only access from the phone.
+- The structured data can be exported as JSON or converted to other formats.
 
 ## Major Areas
 
@@ -35,28 +38,35 @@ Reasons:
 6. Analytics
 7. Export and sync
 
-## Required App Pages
+## Required Web Views
 
-Initial app navigation should include:
+Global analytics navigation includes:
 
 ```text
+Overview
 Log
-Training Days
-Exercises
+Week to week
+Benchmarks
+Biometrics
+Training volume
 Settings
 ```
 
-`Log` is the gym screen. It should stay simple.
+`Phone logger` is the gym screen at `/phone/`. It has a persistent Simple /
+Complex switch at the same URL. Simple shows exercise, reps, weight, and save;
+Complex adds workout day, variation, date/time, and today's saved sets.
 
-`Training Days` is where the user designs or edits the workout plan.
+`Biometrics` contains nested Measurements, Body composition, Athlete model, and
+Growth forecast sections. The entire workspace is labelled heuristic and
+experimental.
 
-`Exercises` is where the user adds/removes exercises, variations, and muscle contribution coefficients.
-
-`Settings` is where global behavior lives, including actual-session boundary mode.
+`Training volume` contains Volume overview and Muscle groups. `Settings`
+contains General settings, Plans, and Imports. Exercise definitions and muscle
+contribution data remain part of the structured dataset.
 
 ## First Mockup Scope
 
-The first low-fidelity mockup covers:
+The initial experience covers:
 
 - Suggested next workout day
 - Freestyle entry
@@ -64,9 +74,7 @@ The first low-fidelity mockup covers:
 - Set entry panel
 - Set history with delete action
 - Exercise setup
-- Location resolver
 - Analytics overview
 
-Exercise Setup and Location Resolver should be independent pages. The workout log may select existing exercises, but it should not create new exercise definitions inline.
-
-It intentionally does not implement persistence, GPS capture, or real chart rendering.
+The workout logger selects existing exercises; it does not create definitions
+inline. GPS and location capture are outside the current scope.

@@ -47,7 +47,7 @@ def main():
         return 1
 
     if not backup_path.exists() or not is_phone_backup(backup_path):
-        print(f"Not a lifting tracker phone backup: {backup_path}", file=sys.stderr)
+        print(f"Not a lift-track-vis phone backup: {backup_path}", file=sys.stderr)
         return 1
 
     result = subprocess.run(

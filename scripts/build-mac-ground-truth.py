@@ -360,7 +360,7 @@ def export_backup(conn, output_file):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Import a lifting tracker backup into the Mac SQLite ground truth database.")
+    parser = argparse.ArgumentParser(description="Import a lift-track-vis backup into the SQLite ground truth database.")
     parser.add_argument("input", nargs="?", default=str(DEFAULT_INPUT), help="Input full-backup.json path.")
     parser.add_argument("--output", default=str(DEFAULT_OUTPUT), help="Output browser-facing full-backup.json path.")
     parser.add_argument("--merge", action="store_true", help="Merge incoming rows by stable id instead of replacing whole incoming tables.")

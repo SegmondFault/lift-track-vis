@@ -1,6 +1,13 @@
-# Mobile Exercise Tracker
+# lift-track-vis
 
-## Start the phone app and visualizer
+A private web-based lifting log and analytics workspace. One dependency-free
+Python service hosts a focused phone logger and the full analytics interface,
+with optional tailnet-only access through Tailscale.
+
+See [QUICKSTART.md](QUICKSTART.md) for installation, private URLs, navigation,
+data locations, and troubleshooting.
+
+## Run the tracker
 
 From this folder, run:
 
@@ -14,27 +21,24 @@ Or, after opening a new terminal, run the global alias:
 workout
 ```
 
-The script starts:
+The script starts one dependency-free Python service on port `5175`:
 
-- the phone app through Expo on port `8081`
-- the Mac visualizer at `http://localhost:5174/visualizer/`
+- phone set logger: `http://localhost:5175/phone/`
+- full analytics and plan tools: `http://localhost:5175/`
 
-Before starting the servers, it also tries to import the newest valid phone backup
-from `data/imports/phone-inbox`, `Downloads`, or `Desktop`.
+The phone page has a persistent `Simple / Complex` switch. Simple mode keeps only
+the exercise, reps, weight, and save controls visible. Complex mode adds the plan
+day, variation, date/time, and today's set list.
 
-It prints the current Expo LAN URL, for example:
+For private access from other devices, run the installer below and use the
+dynamically calculated Tailscale URLs displayed beneath the app heading. No
+native app, app-store build, or JavaScript package manager is needed.
 
-```text
-exp://192.168.178.70:8081
-```
+Keep the terminal open when running manually. Press `Ctrl-C` to stop the service.
 
-Open that URL in Expo Go, or scan the QR code Expo prints.
+## Import a legacy backup
 
-Keep the terminal open while using the phone app. Press `Ctrl-C` to stop the servers the script started.
-
-## Import a phone backup
-
-Export from the phone app, then place `full-backup.json` in:
+Place `full-backup.json` in:
 
 ```text
 data/imports/phone-inbox/full-backup.json
@@ -46,33 +50,18 @@ Then run:
 ./scripts/import-latest-phone-backup.sh
 ```
 
-Reload the visualizer after importing.
+Reload the tracker after importing. This path remains available for historical
+backups; the web logger saves directly to the server database.
 
-The Mac cannot directly read inside Expo Go/iOS app storage. For now, the phone
-must either export the backup file or later push it to a Mac sync endpoint.
+## Log from the full analytics page
 
-## Log from the desktop visualizer
+Sets submitted through either `/phone/` or the full `Log` page are written directly
+to the private server SQLite database. The full page can still download a JSON
+backup for recovery.
 
-Open the visualizer and use the `Log` page.
+## Edit plans
 
-Desktop sets are saved immediately in browser storage and are merged into the
-visible charts in that browser session. To make them permanent in the Mac SQLite
-ground truth:
-
-1. Click `Download desktop backup` on the `Log` page.
-2. Leave the downloaded `desktop-lift-backup.json` in `Downloads`, or move it to
-   `data/imports/phone-inbox`.
-3. Run:
-
-```sh
-./scripts/import-latest-phone-backup.sh
-```
-
-Then refresh the visualizer.
-
-## Edit plans on the Mac
-
-Open the visualizer and use the `Plans` page.
+Open the full analytics page and use `Settings` → `Plans`.
 
 The `Plans` page can:
 
@@ -88,20 +77,21 @@ The durable repo source for plan metadata is:
 data/plan-config.json
 ```
 
-After changing that file, rebuild the Mac visualizer export:
+After changing that file, rebuild the browser-facing export:
 
 ```sh
 python3 scripts/build-mac-ground-truth.py data/imports/most-recent.full-backup.json --merge
 ```
 
-## Private phone URL on gray-area
+## Private Tailscale hosting
 
-The tracker can run on `gray-area` as a loopback-only user service and be exposed
-privately through Tailscale Serve:
+The tracker can run as a private user service bound to the host's Tailscale
+address:
 
 ```sh
 ./scripts/install-gray-area-service.sh
 ```
 
 See `docs/gray-area-deployment.md` for deployment, privacy, and Wake-on-LAN
-details. Personal workout data is deliberately excluded from Git.
+details. Personal workout data is deliberately excluded from Git and the GitHub
+repository is private.

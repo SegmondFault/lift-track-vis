@@ -2,19 +2,19 @@
 
 ## Goal
 
-The user should always be able to recover, inspect, and analyze their data outside the mobile app.
+The user should always be able to recover, inspect, and analyze their data
+outside the browser interface.
 
-## Local-First Store
+## Canonical Store
 
-The mobile app should use SQLite as the canonical local database.
+The private tracker service on `gray-area` uses SQLite as the canonical database.
 
 Benefits:
 
-- Works offline
 - Durable
 - Easy to back up
-- Queryable on a home machine
-- Suitable for future sync
+- Queryable on the workstation
+- Shared by phone logging and analytics without a synchronization step
 
 ## Export Formats
 
@@ -27,27 +27,28 @@ JSON export for complete structured data
 NDJSON event log for future sync/debugging
 ```
 
-Current v1 implementation:
+Current implementation:
 
-- Expo Go shares `full-backup.json` through the iOS share sheet.
-- The phone app also writes normalized CSV siblings into its temporary export directory.
-- The Mac visualizer imports the JSON backup as read-only data.
-- Direct SQLite-file import, zipped bundle sharing, and bidirectional sync are deferred.
+- The phone web page writes sets directly through the private tracker API.
+- The service upserts rows into SQLite and regenerates `full-backup.json`.
+- The full analytics page reads the generated JSON backup.
+- Historical JSON backups can still be imported with the legacy import scripts.
 
 Freshness tracking:
 
-- Phone exports include `exportId`, `exportedAt`, `createdOnDeviceAt`, and `latestSetLoggedAt`.
-- The Mac visualizer records `importedAt` in browser local storage when a file is loaded.
-- `exportedAt` answers "when did the phone produce this backup?"
-- `importedAt` answers "when did this Mac visualizer last load a backup?"
+- Backups include `exportId`, `exportedAt`, `createdOnDeviceAt`, and `latestSetLoggedAt`.
+- The analytics page records `importedAt` when a file is loaded manually.
+- `exportedAt` answers "when did the service produce this backup?"
+- `importedAt` answers "when did this browser last load a manual backup?"
 - `latestSetLoggedAt` answers "how fresh is the workout data inside the backup?"
 
-Mac-side import cache:
+Browser-side import cache:
 
 - The visualizer keeps a read-only merged cache in browser local storage.
 - Rows are deduplicated by stable table IDs, with composite keys for metadata, norms, exercise targets, and muscle contributions.
 - Re-importing the same backup should update cached rows without duplicating lift sets.
-- This cache is for analysis continuity only. The phone SQLite database is still the canonical source of truth.
+- This cache is for analysis continuity only. The server SQLite database remains
+  the canonical source of truth.
 
 ## Future Sync Direction
 
@@ -65,11 +66,10 @@ change_log
 - synced_at nullable
 ```
 
-This allows:
+This could later allow:
 
-- mobile-to-computer backup
-- computer-side data repair
-- computer-to-mobile sync
+- offline phone capture followed by server synchronization
+- workstation-side data repair
 - conflict inspection
 
 ## Conflict Policy
@@ -85,7 +85,7 @@ Lift sets are important enough that conflicting edits should be visible rather t
 
 ## Device Identity
 
-Each install should have a stable local device id:
+If offline clients are added later, each install should have a stable device id:
 
 ```text
 device

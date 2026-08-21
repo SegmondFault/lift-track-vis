@@ -10,7 +10,7 @@ The app stores norm thresholds in:
 strength_norm
 ```
 
-and exports them to the Mac visualizer. The visualizer filters thresholds by:
+and exports them to lift-track-vis. The analytics view filters thresholds by:
 
 ```text
 sex nullable
@@ -23,7 +23,7 @@ bodyweight_max nullable
 
 ## User Category
 
-The mobile app stores the user's selected norm category in:
+The app stores the user's selected norm category in:
 
 ```text
 app_metadata
@@ -59,11 +59,7 @@ The script writes:
 data/strength-norm.seed.json
 ```
 
-After review, copy the seed into:
-
-```text
-mobile/src/seed/strength-norm.seed.json
-```
+The generated repository seed is loaded directly by the import/build scripts.
 
 ## Source Candidates
 

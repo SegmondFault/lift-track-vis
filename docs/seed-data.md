@@ -133,7 +133,8 @@ Cleaning rules:
 - Manually supplied bodyweight points are loaded from the ignored `data/private` directory and remain outside Git.
 - Weekly bodyweight seed entries choose the latest valid observation in each week.
 
-The mobile app seeds these cleaned rows idempotently into SQLite on startup:
+The import/build scripts upsert these cleaned rows idempotently into the server
+SQLite database:
 
 ```text
 workout_session

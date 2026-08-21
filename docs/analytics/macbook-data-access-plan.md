@@ -1,5 +1,12 @@
 # MacBook Data Access And Analytics Plan
 
+> Historical architecture note: this plan predates the current `lift-track-vis`
+> service. The implemented system now hosts the phone logger and analytics from
+> one Python service, writes both directly to the workstation SQLite database,
+> and exposes them privately through Tailscale. See `QUICKSTART.md` and
+> `docs/gray-area-deployment.md` for current operation. The analytics definitions
+> below remain useful background.
+
 ## Recommendation
 
 Use the phone as the capture device and the MacBook as the analysis device.
@@ -191,4 +198,3 @@ Plot/Observable Plot or Recharts
 ```
 
 This keeps the phone app simple and lets the MacBook side become powerful without making the gym UI heavy.
-

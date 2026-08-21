@@ -6,4 +6,4 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 python3 "$ROOT_DIR/scripts/import-phone-export.py" "$@"
 
 echo
-echo "Visualizer data rebuilt. Refresh http://localhost:5174/visualizer/ and click Import most recent if needed."
+echo "lift-track-vis data rebuilt. Refresh http://localhost:5175/ and open Settings > Imports if needed."

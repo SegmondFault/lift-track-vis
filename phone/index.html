@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1410">
+  <title>lift-track-vis · Log a set</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1410;
+      --panel: #111f17;
+      --panel-2: #17271e;
+      --border: #2c4737;
+      --text: #f4f7f4;
+      --muted: #aebbb2;
+      --accent: #51c492;
+      --accent-strong: #69d8a5;
+      --danger: #ff9b96;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100dvh;
+      background:
+        radial-gradient(circle at 50% -10%, rgba(81, 196, 146, 0.14), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+    }
+
+    button, input, select { font: inherit; }
+    button, select { touch-action: manipulation; }
+
+    main {
+      width: min(100%, 35rem);
+      margin: 0 auto;
+      padding: max(1rem, env(safe-area-inset-top)) 1rem max(7rem, calc(6rem + env(safe-area-inset-bottom)));
+    }
+
+    header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    h1 { margin: 0; font-size: clamp(2rem, 9vw, 3rem); line-height: 1; letter-spacing: -0.04em; }
+    header p { margin: 0.5rem 0 0; color: var(--muted); }
+    a { color: var(--accent-strong); font-weight: 750; }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      min-height: 2.3rem;
+      padding: 0.4rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      font-weight: 750;
+      white-space: nowrap;
+    }
+
+    .status::before { content: ""; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: #e0b85d; }
+    .status.online::before { background: var(--accent); box-shadow: 0 0 0 0.2rem rgba(81, 196, 146, 0.12); }
+    .status.offline::before { background: var(--danger); }
+
+    .mode-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.35rem;
+      padding: 0.35rem;
+      margin-bottom: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 1rem;
+      background: rgba(17, 31, 23, 0.86);
+    }
+
+    .mode-switch button {
+      min-height: 3rem;
+      border: 0;
+      border-radius: 0.72rem;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .mode-switch button[aria-pressed="true"] { background: var(--panel-2); color: var(--text); }
+
+    .card {
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 1.15rem;
+      background: rgba(17, 31, 23, 0.94);
+      box-shadow: 0 1.2rem 4rem rgba(0, 0, 0, 0.18);
+    }
+
+    .field { margin-bottom: 1rem; }
+    .field:last-child { margin-bottom: 0; }
+    label { display: block; margin: 0 0 0.45rem; color: var(--muted); font-size: 0.95rem; font-weight: 800; }
+
+    input, select {
+      width: 100%;
+      min-height: 3.55rem;
+      padding: 0.75rem 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 0.8rem;
+      outline: none;
+      background: #0d1912;
+      color: var(--text);
+      font-size: 1.12rem;
+    }
+
+    input:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 0.2rem rgba(81, 196, 146, 0.15); }
+    .exercise select { min-height: 4rem; font-size: 1.2rem; font-weight: 750; }
+
+    .numbers { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+    .numbers input { font-size: 1.5rem; font-weight: 800; }
+
+    .advanced-only[hidden], .recent[hidden] { display: none; }
+
+    .save {
+      position: fixed;
+      z-index: 10;
+      left: 50%;
+      bottom: max(0.75rem, env(safe-area-inset-bottom));
+      width: min(calc(100% - 2rem), 33rem);
+      min-height: 4.2rem;
+      transform: translateX(-50%);
+      border: 0;
+      border-radius: 1rem;
+      background: var(--accent);
+      color: #07110c;
+      font-size: 1.25rem;
+      font-weight: 900;
+      box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.45);
+      cursor: pointer;
+    }
+
+    .save:active { transform: translateX(-50%) scale(0.985); }
+    .save:disabled { cursor: wait; opacity: 0.62; }
+
+    .message { min-height: 1.5rem; margin: 0.85rem 0 0; color: var(--muted); line-height: 1.4; }
+    .message.success { color: var(--accent-strong); }
+    .message.error { color: var(--danger); }
+
+    .recent { margin-top: 1rem; }
+    .recent-header { display: flex; justify-content: space-between; align-items: baseline; gap: 1rem; }
+    h2 { margin: 0; font-size: 1.25rem; }
+    .recent-count { color: var(--muted); font-size: 0.9rem; }
+    .set-list { display: grid; gap: 0.65rem; margin-top: 0.85rem; }
+
+    .set-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 0.75rem;
+      align-items: center;
+      padding: 0.9rem;
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      background: #0d1912;
+    }
+
+    .set-main { min-width: 0; }
+    .set-main strong { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .set-main span { display: block; margin-top: 0.25rem; color: var(--muted); font-size: 0.9rem; }
+    .set-result { margin-top: 0.3rem; color: var(--text) !important; font-size: 1.15rem !important; font-weight: 850; }
+
+    .delete {
+      min-width: 3rem;
+      min-height: 3rem;
+      border: 1px solid #5c3734;
+      border-radius: 0.75rem;
+      background: #291b19;
+      color: var(--danger);
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .empty { margin: 0.8rem 0 0; color: var(--muted); }
+    .footer-link { margin: 1rem 0 0; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+    @media (max-width: 23rem) {
+      header { display: block; }
+      .status { margin-top: 0.75rem; }
+      .numbers { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div>
+        <h1>Log a set</h1>
+        <p>Saved straight to your tracker.</p>
+      </div>
+      <div id="status" class="status" role="status">Connecting</div>
+    </header>
+
+    <div class="mode-switch" aria-label="Logger detail level">
+      <button id="simpleMode" type="button" aria-pressed="true">Simple</button>
+      <button id="advancedMode" type="button" aria-pressed="false">Complex</button>
+    </div>
+
+    <form id="setForm" class="card">
+      <div class="field advanced-only" hidden>
+        <label for="day">Workout day</label>
+        <select id="day"></select>
+      </div>
+
+      <div class="field exercise">
+        <label for="exercise">Exercise</label>
+        <select id="exercise" required></select>
+      </div>
+
+      <div class="field advanced-only" hidden>
+        <label for="variation">Variation</label>
+        <select id="variation"></select>
+      </div>
+
+      <div class="numbers">
+        <div class="field">
+          <label for="reps">Reps</label>
+          <input id="reps" type="number" min="1" step="1" inputmode="numeric" autocomplete="off" required>
+        </div>
+        <div class="field">
+          <label for="weight">Weight (kg)</label>
+          <input id="weight" type="number" min="0" step="0.1" inputmode="decimal" autocomplete="off" required>
+        </div>
+      </div>
+
+      <div class="field advanced-only" hidden>
+        <label for="loggedAt">Workout date/time</label>
+        <input id="loggedAt" type="datetime-local" required>
+      </div>
+
+      <p id="message" class="message" aria-live="polite">Loading your exercise library…</p>
+      <button id="save" class="save" type="submit" disabled>Save set</button>
+    </form>
+
+    <section id="recent" class="card recent" hidden>
+      <div class="recent-header">
+        <h2>Today</h2>
+        <span id="recentCount" class="recent-count"></span>
+      </div>
+      <div id="setList" class="set-list"></div>
+      <p id="empty" class="empty">No sets logged today.</p>
+    </section>
+
+    <p class="footer-link"><a href="/">Open lift-track-vis analytics</a></p>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const FORM_KEY = "liftingTracker.phoneLogger.form.v1";
+      const MODE_KEY = "liftingTracker.phoneLogger.mode.v1";
+      const state = { tables: {}, backup: null, mode: localStorage.getItem(MODE_KEY) === "advanced" ? "advanced" : "simple" };
+      const el = Object.fromEntries([
+        "status", "simpleMode", "advancedMode", "setForm", "day", "exercise", "variation",
+        "reps", "weight", "loggedAt", "message", "save", "recent", "recentCount", "setList", "empty"
+      ].map((id) => [id, document.getElementById(id)]));
+
+      const rows = (name) => Array.isArray(state.tables[name]) ? state.tables[name] : [];
+      const activeRows = (name) => rows(name).filter((row) => !row.deleted_at);
+      const byId = (name) => new Map(rows(name).map((row) => [row.id, row]));
+      const nowLocalValue = () => {
+        const date = new Date();
+        date.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+        return date.toISOString().slice(0, 16);
+      };
+      const localDateKey = (value) => {
+        const date = new Date(value);
+        if (Number.isNaN(date.getTime())) return "";
+        return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+      };
+      const randomId = () => globalThis.crypto?.randomUUID?.() || `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+      const selectedOption = (select) => select.options[select.selectedIndex];
+
+      function setStatus(kind, text) {
+        el.status.className = `status ${kind || ""}`.trim();
+        el.status.textContent = text;
+      }
+
+      function showMessage(text, kind = "") {
+        el.message.className = `message ${kind}`.trim();
+        el.message.textContent = text;
+      }
+
+      function loadSavedForm() {
+        try { return JSON.parse(localStorage.getItem(FORM_KEY) || "{}"); }
+        catch { return {}; }
+      }
+
+      function saveForm() {
+        localStorage.setItem(FORM_KEY, JSON.stringify({
+          day: el.day.value,
+          exercise: el.exercise.value,
+          variation: el.variation.value,
+          reps: el.reps.value,
+          weight: el.weight.value
+        }));
+      }
+
+      function fillSelect(select, options, preferredValue) {
+        select.replaceChildren();
+        options.forEach(({ value, label, data = {} }) => {
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = label;
+          Object.entries(data).forEach(([key, value]) => { option.dataset[key] = value ?? ""; });
+          select.append(option);
+        });
+        if (options.some((option) => option.value === preferredValue)) select.value = preferredValue;
+      }
+
+      function renderDays(saved) {
+        const plans = activeRows("workout_plan");
+        const activePlan = plans.find((plan) => Number(plan.is_active) === 1) || plans[0];
+        const days = activeRows("workout_day")
+          .filter((day) => !activePlan || day.workout_plan_id === activePlan.id)
+          .sort((a, b) => Number(a.day_index) - Number(b.day_index));
+        fillSelect(el.day, [
+          { value: "", label: "Freestyle" },
+          ...days.map((day) => ({ value: day.id, label: day.name || `Day ${day.day_index}`, data: { dayIndex: day.day_index, planId: day.workout_plan_id } }))
+        ], saved.day || "");
+      }
+
+      function renderExercises(preferredValue) {
+        const exercises = byId("exercise");
+        const dayTargets = activeRows("workout_day_exercise")
+          .filter((target) => !el.day.value || target.workout_day_id === el.day.value)
+          .sort((a, b) => Number(a.sort_order) - Number(b.sort_order));
+        const selected = preferredValue || el.exercise.value;
+        let options;
+        if (el.day.value) {
+          options = dayTargets
+            .map((target) => ({ exercise: exercises.get(target.exercise_id), target }))
+            .filter(({ exercise }) => exercise)
+            .map(({ exercise, target }) => ({ value: exercise.id, label: exercise.name, data: { variationId: target.variation_id } }));
+        } else {
+          options = [...exercises.values()]
+            .filter((exercise) => !exercise.deleted_at)
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((exercise) => ({ value: exercise.id, label: exercise.name }));
+        }
+        fillSelect(el.exercise, options, selected);
+        renderVariations();
+      }
+
+      function renderVariations(preferredValue) {
+        const options = activeRows("exercise_variation")
+          .filter((variation) => variation.exercise_id === el.exercise.value)
+          .sort((a, b) => Number(b.is_default) - Number(a.is_default) || a.name.localeCompare(b.name))
+          .map((variation) => ({ value: variation.id, label: variation.name }));
+        const targetVariation = selectedOption(el.exercise)?.dataset.variationId;
+        const saved = preferredValue || loadSavedForm().variation;
+        const defaultVariation = rows("exercise_variation").find((variation) => variation.exercise_id === el.exercise.value && Number(variation.is_default) === 1)?.id;
+        fillSelect(el.variation, options, targetVariation || saved || defaultVariation || options[0]?.value || "");
+      }
+
+      function applyMode(mode) {
+        state.mode = mode;
+        localStorage.setItem(MODE_KEY, mode);
+        const advanced = mode === "advanced";
+        el.simpleMode.setAttribute("aria-pressed", String(!advanced));
+        el.advancedMode.setAttribute("aria-pressed", String(advanced));
+        document.querySelectorAll(".advanced-only").forEach((node) => { node.hidden = !advanced; });
+        el.recent.hidden = !advanced;
+      }
+
+      function exerciseName(id) { return byId("exercise").get(id)?.name || "Unknown exercise"; }
+      function variationName(id) { return byId("exercise_variation").get(id)?.name || "Standard"; }
+
+      function renderRecent() {
+        const today = localDateKey(new Date());
+        const sets = activeRows("lift_set")
+          .filter((set) => localDateKey(set.logged_at) === today)
+          .sort((a, b) => new Date(b.logged_at) - new Date(a.logged_at));
+        el.recentCount.textContent = `${sets.length} set${sets.length === 1 ? "" : "s"}`;
+        el.empty.hidden = sets.length > 0;
+        el.setList.replaceChildren();
+
+        sets.slice(0, 30).forEach((set) => {
+          const row = document.createElement("div");
+          row.className = "set-row";
+          const main = document.createElement("div");
+          main.className = "set-main";
+          const name = document.createElement("strong");
+          name.textContent = exerciseName(set.exercise_id);
+          const variation = document.createElement("span");
+          const time = new Date(set.logged_at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+          variation.textContent = `${variationName(set.variation_id)} · ${time}`;
+          const result = document.createElement("span");
+          result.className = "set-result";
+          result.textContent = `${set.reps} × ${set.weight} ${set.weight_unit || "kg"}`;
+          main.append(name, variation, result);
+          const remove = document.createElement("button");
+          remove.type = "button";
+          remove.className = "delete";
+          remove.textContent = "Delete";
+          remove.setAttribute("aria-label", `Delete ${name.textContent} set`);
+          remove.addEventListener("click", () => deleteSet(set));
+          row.append(main, remove);
+          el.setList.append(row);
+        });
+      }
+
+      async function requestJson(url, options) {
+        const response = await fetch(url, options);
+        let body;
+        try { body = await response.json(); }
+        catch { body = {}; }
+        if (!response.ok) throw new Error(body.error || `Request failed (${response.status})`);
+        return body;
+      }
+
+      async function loadData() {
+        try {
+          state.backup = await requestJson(`/api/export?cacheBust=${Date.now()}`);
+          state.tables = state.backup.tables || {};
+          const saved = loadSavedForm();
+          renderDays(saved);
+          renderExercises(saved.exercise);
+          renderVariations(saved.variation);
+          el.reps.value = saved.reps || "10";
+          el.weight.value = saved.weight || "0";
+          el.loggedAt.value = nowLocalValue();
+          renderRecent();
+          setStatus("online", "Online");
+          showMessage("Ready to log.");
+          el.save.disabled = false;
+        } catch (error) {
+          setStatus("offline", "Offline");
+          showMessage(`Could not reach the tracker: ${error.message}`, "error");
+        }
+      }
+
+      async function saveSet(event) {
+        event.preventDefault();
+        const reps = Number(el.reps.value);
+        const weight = Number(el.weight.value);
+        if (!el.exercise.value || !el.variation.value || !Number.isInteger(reps) || reps < 1 || !Number.isFinite(weight) || weight < 0) {
+          showMessage("Choose an exercise and enter valid reps and weight.", "error");
+          return;
+        }
+
+        const loggedAtDate = state.mode === "simple"
+          ? new Date()
+          : new Date(el.loggedAt.value || nowLocalValue());
+        if (Number.isNaN(loggedAtDate.getTime())) {
+          showMessage("Choose a valid workout date and time.", "error");
+          return;
+        }
+        const loggedAt = loggedAtDate.toISOString();
+        const savedAt = new Date().toISOString();
+        const dayOption = selectedOption(el.day);
+        const dayIndex = dayOption?.dataset.dayIndex ? Number(dayOption.dataset.dayIndex) : null;
+        const sessionId = `phone-web-session-${localDateKey(loggedAtDate)}-${dayIndex || "freestyle"}`;
+        const session = {
+          id: sessionId,
+          workout_plan_id: dayOption?.dataset.planId || null,
+          workout_day_id: el.day.value || null,
+          plan_assignment_id: null,
+          day_index: dayIndex,
+          mode: dayIndex ? "planned" : "freestyle",
+          started_at: loggedAt,
+          ended_at: null,
+          created_at: savedAt,
+          updated_at: savedAt
+        };
+        const set = {
+          id: `phone-web-set-${randomId()}`,
+          workout_session_id: sessionId,
+          day_index: dayIndex,
+          exercise_id: el.exercise.value,
+          variation_id: el.variation.value,
+          reps,
+          weight,
+          weight_unit: "kg",
+          logged_at: loggedAt,
+          created_at: savedAt,
+          updated_at: savedAt,
+          deleted_at: null
+        };
+        const payload = {
+          schemaVersion: 2,
+          exportId: `phone-web-${randomId()}`,
+          exportedAt: savedAt,
+          createdOnDeviceAt: savedAt,
+          latestSetLoggedAt: loggedAt,
+          format: "lifting-tracker-full-backup-json",
+          notes: "Phone web logger save.",
+          tables: { workout_session: [session], lift_set: [set] }
+        };
+
+        el.save.disabled = true;
+        el.save.textContent = "Saving…";
+        showMessage("Saving set…");
+        try {
+          const result = await requestJson("/api/log", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+          state.backup = result.backup;
+          state.tables = result.backup.tables || {};
+          saveForm();
+          el.loggedAt.value = nowLocalValue();
+          renderRecent();
+          setStatus("online", "Saved");
+          showMessage(`${reps} × ${weight} kg ${exerciseName(set.exercise_id)} saved.`, "success");
+          navigator.vibrate?.(35);
+          el.reps.focus();
+          el.reps.select();
+        } catch (error) {
+          setStatus("offline", "Error");
+          showMessage(`Set was not saved: ${error.message}`, "error");
+        } finally {
+          el.save.disabled = false;
+          el.save.textContent = "Save set";
+        }
+      }
+
+      async function deleteSet(set) {
+        if (!confirm(`Delete ${set.reps} × ${set.weight} kg ${exerciseName(set.exercise_id)}?`)) return;
+        try {
+          const result = await requestJson("/api/delete-row", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ tableName: "lift_set", rowId: set.id })
+          });
+          state.backup = result.backup;
+          state.tables = result.backup.tables || {};
+          renderRecent();
+          showMessage("Set deleted.", "success");
+        } catch (error) {
+          showMessage(`Could not delete set: ${error.message}`, "error");
+        }
+      }
+
+      el.simpleMode.addEventListener("click", () => applyMode("simple"));
+      el.advancedMode.addEventListener("click", () => applyMode("advanced"));
+      el.day.addEventListener("change", () => { renderExercises(); saveForm(); });
+      el.exercise.addEventListener("change", () => { renderVariations(); saveForm(); });
+      el.variation.addEventListener("change", saveForm);
+      el.reps.addEventListener("change", saveForm);
+      el.weight.addEventListener("change", saveForm);
+      el.setForm.addEventListener("submit", saveSet);
+
+      applyMode(state.mode);
+      loadData();
+    })();
+  </script>
+</body>
+</html>

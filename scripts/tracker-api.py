@@ -9,6 +9,7 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 VISUALIZER_PATH = ROOT / "visualizer" / "index.html"
+PHONE_LOGGER_PATH = ROOT / "phone" / "index.html"
 
 GROUND_TRUTH_PATH = ROOT / "scripts" / "build-mac-ground-truth.py"
 spec = importlib.util.spec_from_file_location("build_mac_ground_truth", GROUND_TRUTH_PATH)
@@ -24,17 +25,28 @@ def response_body(payload):
     return json.dumps(payload, indent=2).encode("utf-8")
 
 
+def public_tracker_url(handler):
+    configured = os.environ.get("TRACKER_PUBLIC_URL", "").strip().rstrip("/")
+    if configured:
+        return configured, True
+    forwarded_proto = (handler.headers.get("X-Forwarded-Proto") or "").split(",", 1)[0].strip()
+    scheme = forwarded_proto if forwarded_proto in {"http", "https"} else "http"
+    request_host = (handler.headers.get("Host") or "").strip()
+    return (f"{scheme}://{request_host}" if request_host else ""), False
+
+
 class TrackerApiHandler(BaseHTTPRequestHandler):
-    server_version = "WorkoutTrackerApi/1.0"
+    server_version = "lift-track-vis/1.0"
 
     def log_message(self, format, *args):
         return
 
     def end_headers(self):
-        origin = self.headers.get("Origin")
+        headers = getattr(self, "headers", None)
+        origin = headers.get("Origin") if headers else None
         if origin:
             origin_host = urlparse(origin).hostname
-            request_host = (self.headers.get("Host") or "").split(":", 1)[0]
+            request_host = (headers.get("Host") or "").split(":", 1)[0]
             if origin_host in {"localhost", "127.0.0.1"} or origin_host == request_host:
                 self.send_header("Access-Control-Allow-Origin", origin)
                 self.send_header("Vary", "Origin")
@@ -46,7 +58,7 @@ class TrackerApiHandler(BaseHTTPRequestHandler):
 
     def send_html(self, path):
         if not path.exists():
-            self.send_json(404, {"ok": False, "error": "Visualizer not found."})
+            self.send_json(404, {"ok": False, "error": "Page not found."})
             return
         body = path.read_bytes()
         self.send_response(200)
@@ -73,13 +85,23 @@ class TrackerApiHandler(BaseHTTPRequestHandler):
         if path in {"/", "/visualizer", "/visualizer/"}:
             self.send_html(VISUALIZER_PATH)
             return
+        if path in {"/phone", "/phone/"}:
+            self.send_html(PHONE_LOGGER_PATH)
+            return
         if path == "/api/status":
+            base_url, canonical_url_configured = public_tracker_url(self)
             self.send_json(
                 200,
                 {
                     "ok": True,
                     "databaseReady": ground_truth.DB_PATH.exists(),
                     "exportReady": OUTPUT_FILE.exists(),
+                    "access": {
+                        "baseUrl": f"{base_url}/" if base_url else "",
+                        "phoneUrl": f"{base_url}/phone/" if base_url else "",
+                        "canonical": canonical_url_configured,
+                        "network": "tailscale" if canonical_url_configured else "current-request",
+                    },
                 },
             )
             return
@@ -100,7 +122,7 @@ class TrackerApiHandler(BaseHTTPRequestHandler):
         if path == "/api/delete-row":
             self.delete_row()
             return
-        if path != "/api/desktop-log":
+        if path not in {"/api/log", "/api/desktop-log"}:
             self.send_json(404, {"ok": False, "error": "Unknown endpoint."})
             return
 
@@ -114,10 +136,10 @@ class TrackerApiHandler(BaseHTTPRequestHandler):
         raw_tables = payload.get("tables") or {}
         tables = {name: rows for name, rows in raw_tables.items() if name in ALLOWED_TABLES and isinstance(rows, list)}
         if not any(tables.values()):
-            self.send_json(400, {"ok": False, "error": "No desktop log rows supplied."})
+            self.send_json(400, {"ok": False, "error": "No tracker rows supplied."})
             return
 
-        export_id = payload.get("exportId") or f"desktop-auto-{ground_truth.now_iso()}"
+        export_id = payload.get("exportId") or f"tracker-auto-{ground_truth.now_iso()}"
         backup = {
             "schemaVersion": payload.get("schemaVersion") or 2,
             "exportId": export_id,
@@ -125,7 +147,7 @@ class TrackerApiHandler(BaseHTTPRequestHandler):
             "createdOnDeviceAt": payload.get("createdOnDeviceAt") or payload.get("exportedAt") or ground_truth.now_iso(),
             "latestSetLoggedAt": payload.get("latestSetLoggedAt"),
             "format": "lifting-tracker-full-backup-json",
-            "notes": "Desktop autosave through local Workout Tracker API.",
+            "notes": "Saved through the lift-track-vis API.",
             "tables": tables,
         }
 
@@ -135,7 +157,7 @@ class TrackerApiHandler(BaseHTTPRequestHandler):
                 imported_export_id, imported_rows = ground_truth.import_backup(
                     conn,
                     backup,
-                    "desktop-autosave-api",
+                    "tracker-api",
                     replace_tables=False,
                 )
                 visualizer_export_id, visualizer_rows = ground_truth.export_backup(conn, OUTPUT_FILE)
@@ -214,7 +236,7 @@ def main():
     port = int(sys.argv[1]) if len(sys.argv) > 1 else 5175
     host = os.environ.get("TRACKER_API_HOST", "127.0.0.1")
     server = ThreadingHTTPServer((host, port), TrackerApiHandler)
-    print(f"Workout Tracker listening on http://{host}:{port}/")
+    print(f"lift-track-vis listening on http://{host}:{port}/")
     server.serve_forever()
 
 
